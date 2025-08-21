@@ -112,23 +112,6 @@ body {
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
-#home {
-  margin-top: 15px;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #444;
-}
-#home div {
-  background: #d60902;
-  padding: 6px 14px;
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
     
 #board {
   margin: 20px auto;
@@ -259,7 +242,7 @@ body {
   <div id="topBar">
     <div>⏱️ Time: <span id="timer">0</span>s</div>
     <div>🔁 Attempts: <span id="moves">0</span></div>
-    <button class="home" onclick="goHome()">Restart</button>
+    <button class="retro.btn" onclick="goHome()">Restart</button>
   </div>
 
   <div id="board"></div>
