@@ -165,8 +165,8 @@ body {
   display: none;
 }
 @keyframes fadeIn {
-  from {opacity: 0; transform: translate(-50%, -48%);}
-  to {opacity: 1; transform: translate(-50%, -50%);}
+  from {opacity: 0; transform: translate(-50%, -48%);} 
+  to {opacity: 1; transform: translate(-50%, -50%);} 
 }
 
 .template-grid {
@@ -286,7 +286,7 @@ body {
       div.className = "template-item";
       div.innerHTML = `<img src="${tpl.file}" />
         <div>${tpl.name}</div>
-        <button class="retro-btn" onclick="selectTemplate('${tpl.file}', '${tpl.name}')">Select</button>`;
+        <button class="retro-btn" onclick=\"selectTemplate('${tpl.file}', '${tpl.name}')\">Select</button>`;
       templateList.appendChild(div);
     });
 
@@ -354,32 +354,38 @@ body {
         slot.dataset.index = i;
         slot.ondragover = e => e.preventDefault();
         slot.ondrop = function(e) {
-  e.preventDefault();
-  const data = e.dataTransfer.getData("text");
-  const tileOriginal = document.getElementById(data);
-  const fromPieces = pieces.contains(tileOriginal);
+          e.preventDefault();
+          const data = e.dataTransfer.getData("text");
+          if (!data) return;
+          const tileOriginal = document.getElementById(data);
+          const fromPieces = pieces.contains(tileOriginal);
 
-  if (fromPieces) {
-    // hanya boleh dipasang kalau slot kosong
-    if (!slot.hasChildNodes()) {
-      pieces.removeChild(tileOriginal);
-      slot.appendChild(tileOriginal);
-    }
-  } else {
-    // kalau sudah di board → hanya swap antar slot
-    if (!slot.hasChildNodes()) {
-      slot.appendChild(tileOriginal);
-    } else {
-      const existing = slot.firstChild;
-      const parentSlot = tileOriginal.parentElement;
-      slot.replaceChild(tileOriginal, existing);
-      parentSlot.appendChild(existing);
-    }
-  }
-  moveCount++;
-  moveDisplay.textContent = moveCount;
-  checkWin();
-};
+          if (fromPieces) {
+            // Hanya boleh ditempatkan jika slot kosong (tidak ada swap dengan list)
+            if (!slot.hasChildNodes()) {
+              // pindahkan node asli, jangan clone, dan resize ke ukuran board
+              tileOriginal.style.width = tileSize + 'px';
+              tileOriginal.style.height = tileSize + 'px';
+              slot.appendChild(tileOriginal); // otomatis remove dari parent (pieces)
+            }
+          } else {
+            // Drag dari board -> swap antar slot
+            const sourceSlot = tileOriginal.parentElement;
+            if (sourceSlot === pieces) return; // guard
+
+            if (!slot.hasChildNodes()) {
+              slot.appendChild(tileOriginal);
+            } else {
+              const existing = slot.firstChild;
+              // swap: tukar node antar dua slot
+              slot.replaceChild(tileOriginal, existing);
+              sourceSlot.appendChild(existing);
+            }
+          }
+          moveCount++;
+          moveDisplay.textContent = moveCount;
+          checkWin();
+        };
         board.appendChild(slot);
       }
 
@@ -401,26 +407,26 @@ body {
       }, 1000);
     }
 
-   function createTile(i, size, isList = false) {
-  const div = document.createElement("div");
-  div.className = "tile";
-  div.id = "tile" + i;
-  div.dataset.id = i;
-  div.draggable = true;
-  div.style.backgroundImage = `url(${selectedTemplate.file})`;
-  div.style.backgroundSize = `${puzzleSize * 100}% ${puzzleSize * 100}%`;
+    function createTile(i, size, isList = false) {
+      const div = document.createElement("div");
+      div.className = "tile";
+      div.id = "tile" + i;
+      div.dataset.id = i;
+      div.draggable = true;
+      div.style.backgroundImage = `url(${selectedTemplate.file})`;
+      div.style.backgroundSize = `${puzzleSize * 100}% ${puzzleSize * 100}%`;
 
-  const x = i % puzzleSize;
-  const y = Math.floor(i / puzzleSize);
-  div.style.backgroundPosition = `${(x / (puzzleSize - 1)) * 100}% ${(y / (puzzleSize - 1)) * 100}%`;
+      const x = i % puzzleSize;
+      const y = Math.floor(i / puzzleSize);
+      div.style.backgroundPosition = `${(x / (puzzleSize - 1)) * 100}% ${(y / (puzzleSize - 1)) * 100}%`;
 
-  div.style.width = size + "px";
-  div.style.height = size + "px";
+      div.style.width = size + "px";
+      div.style.height = size + "px";
 
-  div.ondragstart = e => e.dataTransfer.setData("text", e.target.id);
-
-  return div;
-}
+      div.ondragstart = e => e.dataTransfer.setData("text", e.target.id);
+      // Hapus kemampuan balikin ke list (tidak ada ondblclick)
+      return div;
+    }
 
     function shuffle(arr) {
       let m = arr.length, i;
