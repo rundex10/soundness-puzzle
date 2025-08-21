@@ -362,9 +362,15 @@ body {
     if (!slot.hasChildNodes()) {
       pieces.removeChild(tileOriginal);
       slot.appendChild(tileOriginal);
+
+      // resize tile supaya pas dengan grid slot
+      const size = board.clientWidth / puzzleSize;
+      const row = parseInt(slot.dataset.row);
+      const col = parseInt(slot.dataset.col);
+      resizeTileToSlot(tileOriginal, size, row, col);
     }
   } else {
-    // kalau sudah di board → hanya swap antar slot
+    // swap antar slot
     if (!slot.hasChildNodes()) {
       slot.appendChild(tileOriginal);
     } else {
@@ -372,12 +378,30 @@ body {
       const parentSlot = tileOriginal.parentElement;
       slot.replaceChild(tileOriginal, existing);
       parentSlot.appendChild(existing);
+
+      // resize ulang keduanya biar sesuai slot masing2
+      const size = board.clientWidth / puzzleSize;
+      const r1 = parseInt(slot.dataset.row);
+      const c1 = parseInt(slot.dataset.col);
+      resizeTileToSlot(tileOriginal, size, r1, c1);
+
+      const r2 = parseInt(parentSlot.dataset.row);
+      const c2 = parseInt(parentSlot.dataset.col);
+      resizeTileToSlot(existing, size, r2, c2);
     }
   }
+
   moveCount++;
   moveDisplay.textContent = moveCount;
   checkWin();
 };
+
+function resizeTileToSlot(tile, size, row, col) {
+  tile.style.width = size + "px";
+  tile.style.height = size + "px";
+  tile.style.backgroundSize = `${puzzleSize * 100}% ${puzzleSize * 100}%`;
+  tile.style.backgroundPosition = `${(col / (puzzleSize - 1)) * 100}% ${(row / (puzzleSize - 1)) * 100}%`;
+}
         board.appendChild(slot);
       }
 
