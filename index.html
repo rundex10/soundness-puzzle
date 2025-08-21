@@ -20,7 +20,6 @@ body {
   color: #333;
 }
 
-/* HEADER */
 #header-bar {
   display: flex;
   align-items: center;
@@ -61,7 +60,6 @@ body {
   100% { transform: translateX(-100%); }
 }
 
-/* GAME DESCRIPTION */
 #game-desc {
   font-size: 16px;
   max-width: 700px;
@@ -74,14 +72,13 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* BUTTONS */
 .retro-btn {
   font-family: inherit;
   font-size: 16px;
   padding: 10px 20px;
   margin: 6px;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   background: linear-gradient(135deg, #6a11cb, #2575fc);
   color: #fff;
   font-weight: 600;
@@ -98,7 +95,6 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-/* TOPBAR */
 #topBar {
   margin-top: 15px;
   display: none;
@@ -112,10 +108,10 @@ body {
 #topBar div {
   background: #fff;
   padding: 6px 14px;
-  border-radius: 12px; /* rounded background */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* opsional biar lebih enak */
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-/* BOARD */
+    
 #board {
   margin: 20px auto;
   display: grid;
@@ -154,7 +150,6 @@ body {
   transform: scale(0.95);
 }
 
-/* POPUPS */
 .popup {
   position: fixed;
   top: 50%;
@@ -210,7 +205,7 @@ body {
   z-index: 900;
   display: none;
 }
-    #winPopup img {
+  #winPopup img {
   width: 220px;
   margin-bottom: 15px;
   border-radius: 12px;
@@ -364,19 +359,16 @@ body {
   const fromPieces = pieces.contains(tileOriginal);
 
   if (fromPieces) {
-    // hanya boleh dipasang kalau slot kosong
     if (!slot.hasChildNodes()) {
       pieces.removeChild(tileOriginal);
       slot.appendChild(tileOriginal);
 
-      // resize tile supaya pas dengan grid slot
       const size = board.clientWidth / puzzleSize;
       const row = parseInt(slot.dataset.row);
       const col = parseInt(slot.dataset.col);
       resizeTileToSlot(tileOriginal, size, row, col);
     }
   } else {
-    // swap antar slot
     if (!slot.hasChildNodes()) {
       slot.appendChild(tileOriginal);
     } else {
@@ -385,7 +377,6 @@ body {
       slot.replaceChild(tileOriginal, existing);
       parentSlot.appendChild(existing);
 
-      // resize ulang keduanya biar sesuai slot masing2
       const size = board.clientWidth / puzzleSize;
       const r1 = parseInt(slot.dataset.row);
       const c1 = parseInt(slot.dataset.col);
