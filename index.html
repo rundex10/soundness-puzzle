@@ -334,6 +334,15 @@ body {
     }
 
     function startGame() {
+      if (!selectedTemplate) {
+        selectedTemplate = templates[0];
+        document.getElementById("templateBtn").innerText = selectedTemplate.name;
+      }
+      if (!puzzleSize || puzzleSize < 3) {
+        puzzleSize = 3;
+        document.getElementById("modeBtn").innerText = "3 x 3";
+      }
+      
       board.innerHTML = "";
       pieces.innerHTML = "";
       document.getElementById("controls").style.display = "none";
