@@ -217,20 +217,24 @@ body {
   box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
 
-#donation {
-  margin-top: 40px;
-  padding: 10px;
-  text-align: center;
-  font-size: 14px;
-  background: rgba(255,255,255,0.05);
-  border-top: 1px solid rgba(255,255,255,0.2);
-}
-#donation .address {
-  display: block;
-  margin-top: 5px;
-  word-break: break-all;
-  color: #00ffcc;
-}
+#love {
+    position: fixed;
+    bottom: 10px; 
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: #fff;
+    background: rgba(0,0,0,0.6);
+    padding: 6px 12px;
+    border-radius: 8px;
+    text-align: center;
+    z-index: 1000;
+  }
+
+  #love .address {
+    font-family: monospace;
+    color: #ffd700;
+  }
   </style>
 </head>
 <body>
@@ -248,8 +252,9 @@ body {
     No pressure. No leaderboard. Just vibes 🐬🧩
   </p>
 
-  <div id="donation">
-  Support the project ❤️ Send some SUI:  
+ <div id="love">
+  This is just a fun fan-made project for Soundness.<br>
+  If you’d like to support, you can send some <b>SUI</b> to:<br>
   <span class="address">0xa8ca7a105dffa49c8750be1f1930dc4a63e64f2b6e0782b804726a6917ce644a</span>
 </div>
 
