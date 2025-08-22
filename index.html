@@ -640,14 +640,19 @@ function launchConfetti() {
   const stats = document.getElementById("winStats").textContent;
   const url = encodeURIComponent("https://soundness-puzzle.netlify.app/");
   const text = encodeURIComponent(
-    `Hi Soundy! I just solved the Soundness Puzzle! 🎉\n${stats}\n\nThink you can beat me? Play here:`
-  );
+    `Hi Soundy! I just solved the Soundness Puzzle! 🎉
+🏆 ${stats}
+
+Think you can beat me?
+Play here: ${url}
+
+This is fan-made game built by community to support @SoundnessLabs 🐬
+
+#WeLoveSoundness`;
 
   const shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
   window.open(shareUrl, "_blank");
-   
-    `Built by the community with love & support for @SoundnessLabs ❤️\n#WeLoveSoundness`   
-}
+ }
 
   </script>
 </body>
