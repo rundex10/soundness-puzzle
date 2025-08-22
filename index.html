@@ -638,9 +638,8 @@ function launchConfetti() {
 
  function shareToX() {
   const stats = document.getElementById("winStats").textContent;
-  const url = encodeURIComponent("https://soundness-puzzle.netlify.app/");
-  const text = encodeURIComponent(
-    `Hi Soundy! I just solved the Soundness Puzzle! 🎉
+  const url = "https://soundness-puzzle.netlify.app/"; // jangan di-encode dulu
+  const text = `Hi Soundy! I just solved the Soundness Puzzle! 🎉
 🏆 ${stats}
 
 Think you can beat me?
@@ -650,10 +649,9 @@ This is fan-made game built by community to support @SoundnessLabs 🐬
 
 #WeLoveSoundness`;
 
-  const shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+  const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
   window.open(shareUrl, "_blank");
- }
-
+}
   </script>
 </body>
 </html>
