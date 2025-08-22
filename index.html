@@ -442,7 +442,8 @@ body {
 
     function selectTemplate(file, name) {
   selectedTemplate = { file, name };
-  document.getElementById("templateBtn").innerText = name;
+  const btn = document.getElementById("templateBtn");
+  btn.innerText = name;
   btn.classList.add("selected");
   closePopups();
   updateStartButton();
@@ -450,7 +451,8 @@ body {
     
     function selectMode(size) {
   puzzleSize = size;
-  document.getElementById("modeBtn").innerText = `${size} x ${size}`;
+  const btn = document.getElementById("modeBtn");
+  btn.innerText = `${size} x ${size}`;
   btn.classList.add("selected");
   closePopups();
   updateStartButton();
