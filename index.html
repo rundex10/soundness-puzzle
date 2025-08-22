@@ -96,11 +96,12 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-.retro-btn:disabled {
-  background: #ccc;
-  color: #666;
+.retro-btn:disabled{
+  background: linear-gradient(135deg, #c7c7c7, #e0e0e0);
+  color:#666;
   cursor: not-allowed;
-  box-shadow: none;
+  box-shadow:none;
+  filter: grayscale(40%);
 }
 
 .sharex-btn {
@@ -401,8 +402,8 @@ body {
       { name: "SN Fruits", file: "sn-fruits.png" },
       { name: "SN Flowers", file: "sn-flowers.png" }
     ];
-    let selectedTemplate = templates[0];
-    let puzzleSize = 3;
+    let selectedTemplate = null;
+    let puzzleSize = null;
     const board = document.getElementById("board");
     const pieces = document.getElementById("pieces");
     const templateList = document.getElementById("templateList");
@@ -436,15 +437,23 @@ body {
     }
 
     function selectTemplate(file, name) {
-      selectedTemplate = { file, name };
-      document.getElementById("templateBtn").innerText = name;
-      closePopups();
-    }
+  selectedTemplate = { file, name };
+  document.getElementById("templateBtn").innerText = name;
+  closePopups();
+  updateStartButton();
+   }
+    
     function selectMode(size) {
-      puzzleSize = size;
-      document.getElementById("modeBtn").innerText = `${size} x ${size}`;
-      closePopups();
+  puzzleSize = size;
+  document.getElementById("modeBtn").innerText = `${size} x ${size}`;
+  closePopups();
+  updateStartButton();
     }
+
+   function updateStartButton() {
+  const startBtn = document.getElementById("startBtn");
+  startBtn.disabled = !(selectedTemplate && Number.isInteger(puzzleSize));
+  }
 
     function goHome() {
       stopConfetti();
@@ -461,40 +470,11 @@ body {
       clearInterval(interval);
       timer = 0;
       moveCount = 0;
+      updateStartButton();
     }
 
-  function updateStartButton() {
-  const startBtn = document.getElementById("startBtn");
-  if (selectedTemplate && puzzleSize) {
-    startBtn.disabled = false;
-  } else {
-    startBtn.disabled = true;
-  }
-}
-
-function selectTemplate(file, name) {
-  selectedTemplate = { file, name };
-  document.getElementById("templateBtn").innerText = name;
-  closePopups();
-  updateStartButton();  // ✅ cek ulang tombol start
-}
-
-function selectMode(size) {
-  puzzleSize = size;
-  document.getElementById("modeBtn").innerText = `${size} x ${size}`;
-  closePopups();
-  updateStartButton();  // ✅ cek ulang tombol start
-}
-
     function startGame() {
-      if (!selectedTemplate) {
-        selectedTemplate = templates[0];
-        document.getElementById("templateBtn").innerText = selectedTemplate.name;
-      }
-      if (!puzzleSize || puzzleSize < 3) {
-        puzzleSize = 3;
-        document.getElementById("modeBtn").innerText = "3 x 3";
-      }
+    if (!selectedTemplate || !Number.isInteger(puzzleSize)) return;
       
       board.innerHTML = "";
       pieces.innerHTML = "";
@@ -504,7 +484,7 @@ function selectMode(size) {
       document.getElementById("topBar").style.display = "flex";
       document.getElementById("game-desc").style.display = "none";
       document.getElementById("love").style.display = "none";
-      love.classList.add("hidden");
+      document.getElementById("love").classList.add("hidden");
       board.style.gridTemplateColumns = `repeat(${puzzleSize}, 1fr)`;
 
       const total = puzzleSize * puzzleSize;
