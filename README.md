@@ -9,7 +9,7 @@ No pressure. No leaderboard. Just vibes. 🌊🐬
 ------
 
 **✨ Features:**
-- Sliding puzzle with 3 different grid sizes: 3x3, 6x6, and 10x10.
+- Sliding puzzle with 3 different mode: 3x3, 6x6, and 10x10.
 - 9 awesome themes you can choose to customize your puzzle look.
 - Soundness-themed skins and fun community vibes.
 - Lightweight, runs directly in the browser.
@@ -20,7 +20,7 @@ No pressure. No leaderboard. Just vibes. 🌊🐬
 
 **🚀 How to Play:**
 - Open the game in your browser.
-- Choose puzzle size (3x3, 6x6, or 10x10) and theme (9 cool looks available).
+- Choose puzzle Theme (9 cool looks available) and mode (3x3, 6x6, or 10x10).
 - Click Start Game.
 - Drag the tiles until the puzzle is complete.
 (*Mobile users: Press and hold a tile slightly longer before sliding to move it.*)
