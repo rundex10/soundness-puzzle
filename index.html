@@ -495,10 +495,12 @@ body {
   document.getElementById("topBar").style.display = "none";
   document.getElementById("controls").style.display = "block";
   document.getElementById("game-desc").style.display = "block";
-  document.getElementById("love").style.display = "flex";
-  document.getElementById("love").classList.add("hidden");
   document.getElementById("winPopup").style.display = "none";
   document.getElementById("overlay").style.display = "none";
+
+  const love = document.getElementById("love");
+  love.style.display = "flex";
+  love.classList.remove("hidden");
 
   // reset data permainan
   clearInterval(interval);
