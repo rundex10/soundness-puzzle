@@ -463,9 +463,14 @@ body {
       moveCount = 0;
     }
 
-  function updateStartButton() {
+  let selectedTemplate = null;
+let puzzleSize = null;
+
+function updateStartButton() {
   const startBtn = document.getElementById("startBtn");
-  if (selectedTemplate && puzzleSize) {
+
+  // pastikan dua-duanya dipilih
+  if (selectedTemplate !== null && puzzleSize !== null) {
     startBtn.disabled = false;
   } else {
     startBtn.disabled = true;
@@ -476,14 +481,14 @@ function selectTemplate(file, name) {
   selectedTemplate = { file, name };
   document.getElementById("templateBtn").innerText = name;
   closePopups();
-  updateStartButton();  // ✅ cek ulang tombol start
+  updateStartButton();
 }
 
 function selectMode(size) {
   puzzleSize = size;
   document.getElementById("modeBtn").innerText = `${size} x ${size}`;
   closePopups();
-  updateStartButton();  // ✅ cek ulang tombol start
+  updateStartButton();
 }
 
     function startGame() {
