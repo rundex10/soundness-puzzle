@@ -348,7 +348,7 @@ body {
     function goHome() {
       board.style.display = "none";
       pieces.style.display = "none";
-      document.getElementById("love").style.display = "none";
+      document.getElementById("love").style.display = "block";
       document.getElementById("topBar").style.display = "none";
       document.getElementById("controls").style.display = "block";
       document.getElementById("winPopup").style.display = "none";
@@ -375,7 +375,7 @@ body {
       pieces.style.display = "flex";
       document.getElementById("topBar").style.display = "flex";
       document.getElementById("game-desc").style.display = "none";
-      document.getElementById("love").style.display = "block";
+      document.getElementById("love").style.display = "none";
 
       board.style.gridTemplateColumns = `repeat(${puzzleSize}, 1fr)`;
 
