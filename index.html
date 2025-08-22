@@ -366,7 +366,7 @@ body {
 <div id="topBar">
   <div>⏱️ Time: <span id="timer">0</span>s</div>
   <div>🔁 Attempts: <span id="moves">0</span></div>
-  <button class="retro-btn" onclick="goHome()">Restart</button>
+  <button class="retro-btn" onclick="restartGame()">Restart</button>
 </div>
 
 <div id="board"></div>
@@ -472,6 +472,42 @@ body {
       moveCount = 0;
       updateStartButton();
     }
+
+  function restartGame() {
+  // reset pilihan template & mode
+  selectedTemplate = null;
+  puzzleSize = null;
+
+  // reset tombol template & mode
+  document.getElementById("templateBtn").innerText = "Choose Template";
+  document.getElementById("modeBtn").innerText = "Choose Mode";
+
+  // reset tombol start
+  const startBtn = document.getElementById("startBtn");
+  startBtn.disabled = true;
+
+  // reset tampilan
+  board.innerHTML = "";
+  pieces.innerHTML = "";
+  board.style.display = "none";
+  pieces.style.display = "none";
+  document.getElementById("topBar").style.display = "none";
+  document.getElementById("controls").style.display = "block";
+  document.getElementById("game-desc").style.display = "block";
+  document.getElementById("love").style.display = "flex";
+  document.getElementById("winPopup").style.display = "none";
+  document.getElementById("overlay").style.display = "none";
+
+  // reset data permainan
+  clearInterval(interval);
+  timer = 0;
+  moveCount = 0;
+  timerDisplay.textContent = "0";
+  moveDisplay.textContent = "0";
+
+  // stop confetti kalau masih ada
+  stopConfetti();
+}
 
     function startGame() {
     if (!selectedTemplate || !Number.isInteger(puzzleSize)) return;
