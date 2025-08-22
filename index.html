@@ -258,6 +258,9 @@ body {
   width: 60px;                   
   height: auto;
 }
+
+.hidden { display: none !important;
+}
   </style>
 </head>
 <body>
@@ -376,7 +379,10 @@ body {
     function goHome() {
       board.style.display = "none";
       pieces.style.display = "none";
-      document.getElementById("love").style.display = "block";
+      const love = document.getElementById("love");
+      love.style.display = "flex";
+      love.style.flexDirection = "row";
+      love.classList.remove("hidden");
       document.getElementById("topBar").style.display = "none";
       document.getElementById("controls").style.display = "block";
       document.getElementById("winPopup").style.display = "none";
@@ -404,7 +410,7 @@ body {
       document.getElementById("topBar").style.display = "flex";
       document.getElementById("game-desc").style.display = "none";
       document.getElementById("love").style.display = "none";
-
+      love.classList.add("hidden");
       board.style.gridTemplateColumns = `repeat(${puzzleSize}, 1fr)`;
 
       const total = puzzleSize * puzzleSize;
