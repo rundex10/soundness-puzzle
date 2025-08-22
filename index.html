@@ -366,7 +366,7 @@ body {
 <div id="topBar">
   <div>⏱️ Time: <span id="timer">0</span>s</div>
   <div>🔁 Attempts: <span id="moves">0</span></div>
-  <button class="retro-btn" onclick="restartGameState()">Restart</button>
+  <button class="retro-btn" onclick="goHome()">Restart</button>
 </div>
 
 <div id="board"></div>
@@ -494,6 +494,7 @@ body {
   document.getElementById("controls").style.display = "block";
   document.getElementById("game-desc").style.display = "block";
   document.getElementById("love").style.display = "flex";
+  document.getElementById("love").classList.add("hidden");
   document.getElementById("winPopup").style.display = "none";
   document.getElementById("overlay").style.display = "none";
 
