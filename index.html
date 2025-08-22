@@ -259,6 +259,24 @@ body {
   height: auto;
 }
 
+.mascot {
+  background: none !important;   
+  box-shadow: none !important;   
+  border: none !important;       
+  width: 60px;                   
+  height: auto;
+  animation: floaty 4s ease-in-out infinite;
+}
+
+@keyframes floaty {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-15px); }
+  100% { transform: translateY(0); }
+}
+
+.mascot-left { animation-delay: 0s; }
+.mascot-right { animation-delay: 2s; }
+
 .hidden { display: none !important;
 }
   </style>
