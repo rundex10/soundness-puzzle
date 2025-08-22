@@ -130,6 +130,31 @@ body {
 .selected {
   color: yellow;
 }
+
+#startBtn.enabled {
+  background: linear-gradient(
+    90deg,
+    red,
+    orange,
+    yellow,
+    green,
+    cyan,
+    blue,
+    violet,
+    red
+  );
+  background-size: 400%;
+  color: white;
+  font-weight: bold;
+  animation: rainbowMove 1s linear infinite;
+  border: none;
+  text-shadow: 1px 1px 3px black;
+}
+
+@keyframes rainbowMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
     
 #topBar {
   margin-top: 15px;
@@ -460,8 +485,14 @@ body {
 
    function updateStartButton() {
   const startBtn = document.getElementById("startBtn");
-  startBtn.disabled = !(selectedTemplate && Number.isInteger(puzzleSize));
+  if (selectedTemplate && puzzleSize) {
+    startBtn.disabled = false;
+    startBtn.classList.add("enabled");   // 🌈 pelangi
+  } else {
+    startBtn.disabled = true;
+    startBtn.classList.remove("enabled"); // balik normal
   }
+}
 
     function goHome() {
       stopConfetti();
