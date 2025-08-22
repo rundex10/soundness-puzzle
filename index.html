@@ -288,6 +288,7 @@ body {
   height: 100%;
   pointer-events: none;
   z-index: 2000;
+  display: none;
 }
 
   </style>
@@ -409,6 +410,7 @@ body {
     }
 
     function goHome() {
+      stopConfetti();
       board.style.display = "none";
       pieces.style.display = "none";
       const love = document.getElementById("love");
@@ -572,22 +574,38 @@ function resizeTileToSlot(tile, size, row, col) {
       }
     }
 
+  let confettiRAF = null;
+  let confettiStopFn = null;
+
+function stopConfetti() {
+  const canvas = document.getElementById("confetti-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  if (confettiRAF) cancelAnimationFrame(confettiRAF);
+  confettiRAF = null;
+  ctx && ctx.clearRect(0, 0, canvas.width, canvas.height);
+  canvas.style.display = "none";
+  confettiStopFn = null;
+}
+
 function launchConfetti() {
+  
+  stopConfetti();
+
   const canvas = document.getElementById("confetti-canvas");
   const ctx = canvas.getContext("2d");
-
+  canvas.style.display = "block";
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
   const confettis = [];
-  const colors = ["#ff595e", "#ffca3a", "#8ac926", "#1982c4", "#6a4c93", "#ff99c8"];
+  const colors = ["#ff595e","#ffca3a","#8ac926","#1982c4","#6a4c93","#ff99c8"];
 
   for (let i = 0; i < 150; i++) {
     confettis.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height - canvas.height,
-      w: 8,
-      h: 14,
+      w: 8, h: 14,
       color: colors[Math.floor(Math.random() * colors.length)],
       speed: Math.random() * 3 + 2,
       rotate: Math.random() * 360,
@@ -605,19 +623,17 @@ function launchConfetti() {
       ctx.globalAlpha = c.opacity;
       ctx.fillRect(-c.w / 2, -c.h / 2, c.w, c.h);
       ctx.restore();
-
       c.y += c.speed;
       c.rotate += 5;
       if (c.y > canvas.height) c.y = -20;
     });
-    requestAnimationFrame(draw);
+    confettiRAF = requestAnimationFrame(draw);
   }
   draw();
 
-  // stop setelah 5 detik
-  setTimeout(() => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  }, 5000);
+  // auto stop setelah 5 detik
+  confettiStopFn = () => stopConfetti();
+  setTimeout(confettiStopFn, 5000);
 }
 
   </script>
