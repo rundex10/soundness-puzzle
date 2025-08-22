@@ -96,6 +96,29 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
+.sharex-btn {
+  font-family: inherit;
+  font-size: 16px;
+  padding: 10px 20px;
+  margin: 6px;
+  border: 1px solid #fff;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #000, #000);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: all 0.2s ease;
+}
+.sharex-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+.sharex-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
 #topBar {
   margin-top: 15px;
   display: none;
@@ -349,7 +372,7 @@ body {
     <img id="winThumb" src="" alt="Template thumbnail" />
     <h2>Great Soundy. You solved it!!!</h2>
     <p id="winStats" style="font-size:16px; font-weight:bold; margin:10px 0;"></p>
-    <button class="retro-btn" onclick="shareToX()">Share to X</button>
+    <button class="sharex-btn" onclick="shareToX()">Share to X</button>
     <button class="retro-btn" onclick="goHome()">Back to Menu</button>
   </div>
 
