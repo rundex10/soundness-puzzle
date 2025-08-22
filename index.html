@@ -334,6 +334,7 @@ body {
   <div id="winPopup" class="popup">
     <img id="winThumb" src="" alt="Template thumbnail" />
     <h2>Great Soundy. You solved it!!!</h2>
+    <p id="winStats" style="font-size:16px; font-weight:bold; margin:10px 0;"></p>
     <button class="retro-btn" onclick="goHome()">Back to Menu</button>
   </div>
 
@@ -550,6 +551,7 @@ function resizeTileToSlot(tile, size, row, col) {
       if (correct === puzzleSize * puzzleSize) {
         clearInterval(interval);
         document.getElementById("winThumb").src = selectedTemplate.file;
+        document.getElementById("winStats").textContent = `Time: ${timer}s - Attempts: ${moveCount}`;
         document.getElementById("winPopup").style.display = "block";
         document.getElementById("overlay").style.display = "block";
       }
