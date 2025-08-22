@@ -511,6 +511,14 @@ body {
   stopConfetti();
 }
 
+function restartGame() {
+  resetGameState();
+}
+
+function goHome() {
+  resetGameState();
+}
+
     function startGame() {
     if (!selectedTemplate || !Number.isInteger(puzzleSize)) return;
       
