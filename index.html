@@ -366,7 +366,7 @@ body {
 <div id="topBar">
   <div>⏱️ Time: <span id="timer">0</span>s</div>
   <div>🔁 Attempts: <span id="moves">0</span></div>
-  <button class="retro-btn" onclick="restartGame()">Restart</button>
+  <button class="retro-btn" onclick="restartGameState()">Restart</button>
 </div>
 
 <div id="board"></div>
@@ -387,7 +387,7 @@ body {
     <h2>Great Soundy. You solved it!!!</h2>
     <p id="winStats" style="font-size:16px; font-weight:bold; margin:10px 0;"></p>
     <button class="sharex-btn" onclick="shareToX()">Share to X</button>
-    <button class="retro-btn" onclick="restartGame()">Back to Menu</button>
+    <button class="retro-btn" onclick="goHome()">Back to Menu</button>
 </div>
 
   <script>
@@ -473,7 +473,7 @@ body {
       updateStartButton();
     }
 
-  function restartGame() {
+  function resetGameState() {
   // reset pilihan template & mode
   selectedTemplate = null;
   puzzleSize = null;
@@ -481,12 +481,9 @@ body {
   // reset tombol template & mode
   document.getElementById("templateBtn").innerText = "Pick a Theme";
   document.getElementById("modeBtn").innerText = "Mode";
-  document.getElementById("love").style.display = "flex";
-  document.getElementById("love").classList.remove("hidden");
 
   // reset tombol start
-  const startBtn = document.getElementById("startBtn");
-  startBtn.disabled = true;
+  document.getElementById("startBtn").disabled = true;
 
   // reset tampilan
   board.innerHTML = "";
@@ -507,8 +504,11 @@ body {
   timerDisplay.textContent = "0";
   moveDisplay.textContent = "0";
 
-  // stop confetti kalau masih ada
+  // stop confetti
   stopConfetti();
+
+  // sinkronisasi tombol start
+  updateStartButton();
 }
 
 function restartGame() {
