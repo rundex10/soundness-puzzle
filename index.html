@@ -96,6 +96,13 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
+.retro-btn:disabled {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 .sharex-btn {
   font-family: inherit;
   font-size: 16px;
@@ -352,7 +359,7 @@ body {
 <div id="controls">
   <button class="retro-btn" id="templateBtn" onclick="openTemplatePopup()">Pick a Theme</button>
   <button class="retro-btn" id="modeBtn" onclick="openModePopup()">Mode</button>
-  <button class="retro-btn" onclick="startGame()">Start Game</button>
+  <button class="retro-btn" id="startBtn" onclick="startGame()" disabled>Start Game</button>
 </div>
 
 <div id="topBar">
@@ -455,6 +462,29 @@ body {
       timer = 0;
       moveCount = 0;
     }
+
+  function updateStartButton() {
+  const startBtn = document.getElementById("startBtn");
+  if (selectedTemplate && puzzleSize) {
+    startBtn.disabled = false;
+  } else {
+    startBtn.disabled = true;
+  }
+}
+
+function selectTemplate(file, name) {
+  selectedTemplate = { file, name };
+  document.getElementById("templateBtn").innerText = name;
+  closePopups();
+  updateStartButton();  // ✅ cek ulang tombol start
+}
+
+function selectMode(size) {
+  puzzleSize = size;
+  document.getElementById("modeBtn").innerText = `${size} x ${size}`;
+  closePopups();
+  updateStartButton();  // ✅ cek ulang tombol start
+}
 
     function startGame() {
       if (!selectedTemplate) {
