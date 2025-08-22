@@ -212,9 +212,11 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   transition: transform 0.2s;
 }
+    
 .template-item:hover {
   transform: translateY(-4px);
 }
+    
 .template-item img {
   width: 100%;
   border-radius: 8px;
@@ -232,6 +234,7 @@ body {
   z-index: 900;
   display: none;
 }
+    
 #winPopup img {
   width: 220px;
   margin-bottom: 15px;
@@ -240,38 +243,38 @@ body {
   box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
 
- #love {
-   position: fixed;
-   bottom: 10px; 
-   left: 50%;
-   transform: translateX(-50%);
-   display: flex;
-   font-size: 14px;
-   color: #000;
-   background: none;
-   padding: 6px 12px;
-   border-radius: 8px;
-   text-align: center;
-   z-index: 1000;
-   display: flex;                 
-   align-items: center;
-   justify-content: center;
-   gap: 10px;                     
-   max-width: 90%;
+#love {
+  position: fixed;
+  bottom: 10px; 
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  font-size: 14px;
+  color: #000;
+  background: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  text-align: center;
+  z-index: 1000;
+  display: flex;                 
+  align-items: center;
+  justify-content: center;
+  gap: 10px;                     
+  max-width: 90%;
  }
 
- .love-box {
-   background: none;
-   color: black;
-   font-size: 14px;
-   padding: 10px 18px;
-   border-radius: 10px;
-   text-align: center;
-   max-width: 600px;
+.love-box {
+  background: none;
+  color: black;
+  font-size: 14px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 600px;
  }
 
- #love .address {
-  color: #0f03fc;
+#love .address {
+ color: #0f03fc;
 }
 
 .mascot {
@@ -291,16 +294,16 @@ body {
   animation: floaty 3s ease-in-out infinite;
 }
 
-@keyframes floaty {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-15px); }
-  100% { transform: translateY(0); }
+ @keyframes floaty {
+   0%   { transform: translateY(0); }
+   50%  { transform: translateY(-15px); }
+   100% { transform: translateY(0); }
 }
 
-.mascot-left { animation-delay: 0s; }
-.mascot-right { animation-delay: 1s; }
+ .mascot-left { animation-delay: 0s; }
+ .mascot-right { animation-delay: 1s; }
 
-.hidden { display: none !important;
+ .hidden { display: none !important;
 }
 
 #confetti-canvas {
@@ -318,47 +321,47 @@ body {
 </head>
 <body>
   <div id="header-bar">
-  <img src="logo.png" id="logo-title" alt="Soundness Puzzle" />
-  <div id="marquee-container">
+    <img src="logo.png" id="logo-title" alt="Soundness Puzzle" />
+    <div id="marquee-container">
     <div id="marquee">🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬</div>
   </div>
 </div>
 
-   <canvas id="confetti-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999;"></canvas>
+<canvas id="confetti-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999;"></canvas>
 
-  <p id="game-desc">
-    Soundness Puzzle isn’t about grinding, speedrunning, or proving anything.<br>
-    It’s just a fun little game for all Soundy frens — made with love, for the vibes.<br>
-    Pick your favorite Soundness look, drag pieces, and enjoy the ride.<br><br>
-    No pressure. No leaderboard. Just vibes 🐬🧩
-  </p>
+<p id="game-desc">
+  Soundness Puzzle isn’t about grinding, speedrunning, or proving anything.<br>
+  It’s just a fun little game for all Soundy frens — made with love, for the vibes.<br>
+  Pick your favorite Soundness look, drag pieces, and enjoy the ride.<br><br>
+  No pressure. No leaderboard. Just vibes 🐬🧩
+</p>
 
- <div id="love">
-   <img src="left-mascot.png" class="mascot mascot-left">
-  <div class="love-box">
-   This is just a fun fan-made Game for all Soundy friends.<br>
-   If you’d like to support, you can send some <b>SUI</b> to:<br><br>
-  <span class="address">0xa8ca7a105dffa49c8750be1f1930dc4a63e64f2b6e0782b804726a6917ce644a</span>
-  </div>
-   <img src="right-mascot.png" class="mascot mascot-right">
+<div id="love">
+  <img src="left-mascot.png" class="mascot mascot-left">
+    <div class="love-box">
+      This is just a fun fan-made Game for all Soundy friends.<br>
+      If you’d like to support, you can send some <b>SUI</b> to:<br><br>
+      <span class="address">0xa8ca7a105dffa49c8750be1f1930dc4a63e64f2b6e0782b804726a6917ce644a</span>
+    </div>
+  <img src="right-mascot.png" class="mascot mascot-right">
 </div>
 
-  <div id="controls">
-    <button class="retro-btn" id="templateBtn" onclick="openTemplatePopup()">Pick a Template</button>
-    <button class="retro-btn" id="modeBtn" onclick="openModePopup()">Mode</button>
-    <button class="retro-btn" onclick="startGame()">Start Game</button>
-  </div>
+<div id="controls">
+  <button class="retro-btn" id="templateBtn" onclick="openTemplatePopup()">Pick a Template</button>
+  <button class="retro-btn" id="modeBtn" onclick="openModePopup()">Mode</button>
+  <button class="retro-btn" onclick="startGame()">Start Game</button>
+</div>
 
-  <div id="topBar">
-    <div>⏱️ Time: <span id="timer">0</span>s</div>
-    <div>🔁 Attempts: <span id="moves">0</span></div>
-    <button class="retro-btn" onclick="goHome()">Restart</button>
-  </div>
+<div id="topBar">
+  <div>⏱️ Time: <span id="timer">0</span>s</div>
+  <div>🔁 Attempts: <span id="moves">0</span></div>
+  <button class="retro-btn" onclick="goHome()">Restart</button>
+</div>
 
-  <div id="board"></div>
-  <div id="pieces"></div>
+<div id="board"></div>
+<div id="pieces"></div>
 
-  <div id="overlay" onclick="closePopups()"></div>
+<div id="overlay" onclick="closePopups()"></div>
   <div id="templatePopup" class="popup">
     <div class="template-grid" id="templateList"></div>
   </div>
@@ -368,13 +371,13 @@ body {
     <button class="retro-btn" onclick="selectMode(6)">6 x 6</button>
     <button class="retro-btn" onclick="selectMode(10)">10 x 10</button>
   </div>
-  <div id="winPopup" class="popup">
+<div id="winPopup" class="popup">
     <img id="winThumb" src="" alt="Template thumbnail" />
     <h2>Great Soundy. You solved it!!!</h2>
-    <p id="winStats" style="font-size:16px; font-weight:bold; margin:10px 0;">🏆 </p>
+    <p id="winStats" style="font-size:16px; font-weight:bold; margin:10px 0;"></p>
     <button class="sharex-btn" onclick="shareToX()">Share to X</button>
     <button class="retro-btn" onclick="goHome()">Back to Menu</button>
-  </div>
+</div>
 
   <script>
     const templates = [
@@ -661,7 +664,7 @@ function launchConfetti() {
 
  function shareToX() {
   const stats = document.getElementById("winStats").textContent;
-  const url = "https://soundness-puzzle.netlify.app/"; // jangan di-encode dulu
+  const url = "https://soundness-puzzle.netlify.app/";
   const text = `Hi Soundy! I just solved the Soundness Puzzle! 🎉
 🏆 ${stats}
 
