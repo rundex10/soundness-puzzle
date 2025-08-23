@@ -369,16 +369,17 @@ body {
 }
 
 .template-item.no-text {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
+  padding: 0;              /* hilangkan padding */
+  display: block;          /* jangan pakai flex-center */
+  overflow: hidden;        /* biar gambar tidak keluar */
 }
 
 .template-item.no-text img {
   width: 100%;
-  height: auto;
-  border-radius: 8px;
+  height: 100%;
+  object-fit: cover;       /* isi penuh kotak */
+  border-radius: 8px;      /* sama kayak card lain */
+  display: block;
 }
 
   </style>
