@@ -368,6 +368,19 @@ body {
   display: none;
 }
 
+.template-item.no-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.template-item.no-text img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
   </style>
 </head>
 <body>
@@ -462,6 +475,11 @@ body {
         <button class="retro-btn" onclick="selectTemplate('${tpl.file}', '${tpl.name}')">Select</button>`;
       templateList.appendChild(div);
     });
+
+      const moreDiv = document.createElement("div");
+     moreDiv.className = "template-item no-text"; 
+     moreDiv.innerHTML = `<img src="more.jpg" alt="More" />`;
+     templateList.appendChild(moreDiv);
 
     function openTemplatePopup() {
       document.getElementById("templatePopup").style.display = "block";
