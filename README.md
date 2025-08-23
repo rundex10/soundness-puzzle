@@ -10,7 +10,7 @@ No pressure. No leaderboard. Just vibes. 🌊🐬
 
 **✨ Features:**
 - Sliding puzzle with 3 different mode: 3x3, 6x6, and 10x10.
-- 9 awesome themes you can choose to customize your puzzle look.
+- 14 awesome themes you can choose to customize your puzzle look.
 - Soundness-themed skins and fun community vibes.
 - Lightweight, runs directly in the browser.
 - Friendly UI with touch support.
