@@ -89,8 +89,9 @@ body {
 }
 .retro-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  box-shadow: 0 0 12px #28a745, 0 0 24px #28a745, 0 0 36px rgba(40,167,69,0.7);
 }
+    
 .retro-btn:active {
   transform: translateY(0);
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
@@ -120,7 +121,7 @@ body {
 }
 .sharex-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  box-shadow: 0 0 12px #28a745, 0 0 24px #28a745, 0 0 36px rgba(40,167,69,0.7);
 }
 .sharex-btn:active {
   transform: translateY(0);
@@ -149,6 +150,24 @@ body {
   animation: rainbowMove 1s linear infinite;
   border: 1px solid #fff;
   text-shadow: 1px 1px 3px black;
+}
+
+#startBtn:hover {
+  background: linear-gradient(
+    90deg,
+    red,
+    orange,
+    yellow,
+    green,
+    cyan,
+    blue,
+    violet,
+    red
+  ) !important;
+  background-size: 400% 400%;
+  animation: rainbowMove 1s linear infinite;
+  transform: none;
+  box-shadow: 0 0 12px rgba(255,255,255,0.4);
 }
 
 @keyframes rainbowMove {
