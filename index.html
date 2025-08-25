@@ -828,6 +828,13 @@ This is fan-made game built by community to support @SoundnessLabs 🐬
   const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
   window.open(shareUrl, "_blank");
 }
+
+window.addEventListener("click", function(e) {
+  const winPopup = document.getElementById("winPopup");
+  if (winPopup.style.display === "block" && !winPopup.contains(e.target)) {
+    goHome();
+  }
+});
   </script>
 </body>
 </html>
