@@ -828,30 +828,6 @@ This is fan-made game built by community to support @SoundnessLabs 🐬
   const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
   window.open(shareUrl, "_blank");
 }
-
-let isGameOver = false; // tambahkan global flag
-
-function checkWin() {
-  // logika cek puzzle benar
-  if (puzzleBenar) {
-    isGameOver = true; // aktifkan saat menang
-    document.getElementById("winPopup").style.display = "block";
-    document.getElementById("overlay").style.display = "block";
-    document.getElementById("overlayBlur").style.display = "block";
-  }
-}
-
-// contoh handler drag (pastikan semua geser puzzle lewat fungsi ini)
-function onTileDrag(e) {
-  if (isGameOver) return; // blokir interaksi kalau game sudah selesai
-
-  // ... sisanya logika geser puzzle
-}
-
-tile.addEventListener("mousedown", function(e) {
-  if (isGameOver) return;
-  // logika mulai geser
-});
   </script>
 </body>
 </html>
