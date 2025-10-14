@@ -1,113 +1,107 @@
-const DB_NAME = "SoundnessPuzzleDB";
-const STORE_NAME = "users";
+// userData.js
+const userData = {
+  dataKey: "soundness_users",
+  sessionKey: "soundness_session",
 
-let db;
-const request = indexedDB.open(DB_NAME, 1);
+  loadAllUsers() {
+    return JSON.parse(localStorage.getItem(this.dataKey) || "{}");
+  },
 
-request.onerror = (e) => console.error("Database error:", e.target.error);
-request.onsuccess = (e) => (db = e.target.result);
-request.onupgradeneeded = (e) => {
-  const db = e.target.result;
-  db.createObjectStore(STORE_NAME, { keyPath: "username" });
-};
+  saveAllUsers(users) {
+    localStorage.setItem(this.dataKey, JSON.stringify(users));
+  },
 
-function saveUserData(user) {
-  const tx = db.transaction(STORE_NAME, "readwrite");
-  const store = tx.objectStore(STORE_NAME);
-  store.put(user);
-}
+  getSession() {
+    return JSON.parse(localStorage.getItem(this.sessionKey) || "null");
+  },
 
-function getUserData(username, callback) {
-  const tx = db.transaction(STORE_NAME, "readonly");
-  const store = tx.objectStore(STORE_NAME);
-  const req = store.get(username);
+  setSession(username) {
+    localStorage.setItem(this.sessionKey, JSON.stringify({ username }));
+  },
 
-  req.onsuccess = () => callback(req.result || null);
-  req.onerror = () => callback(null);
-}
+  clearSession() {
+    localStorage.removeItem(this.sessionKey);
+  },
 
-function setActiveUser(username) {
-  localStorage.setItem("activeUser", username);
-}
-
-function getActiveUser() {
-  return localStorage.getItem("activeUser");
-}
-
-function logoutUser() {
-  localStorage.removeItem("activeUser");
-}
-
-function registerUser(username, password) {
-  getUserData(username, (existing) => {
-    if (existing) {
+  registerUser(username, password) {
+    const users = this.loadAllUsers();
+    if (!username || !password) {
+      alert("Please fill username and password!");
+      return;
+    }
+    if (users[username]) {
       alert("Username already exists!");
       return;
     }
-
-    const newUser = {
-      username,
+    users[username] = {
       password,
       gamesPlayed: 0,
-      createdAt: new Date().toISOString(),
-      lastPlayed: null,
+      createdAt: new Date().toISOString()
     };
+    this.saveAllUsers(users);
+    this.setSession(username);
+    alert("Registration successful!");
+    this.updateUserUI();
+  },
 
-    saveUserData(newUser);
-    setActiveUser(username);
-    alert("Account created successfully!");
-    location.reload();
-  });
-}
-
-function loginUser(username, password) {
-  getUserData(username, (user) => {
-    if (!user) {
+  loginUser(username, password) {
+    const users = this.loadAllUsers();
+    if (!users[username]) {
       alert("User not found!");
       return;
     }
-    if (user.password !== password) {
-      alert("Wrong password!");
+    if (users[username].password !== password) {
+      alert("Incorrect password!");
       return;
     }
+    this.setSession(username);
+    alert("Login successful!");
+    this.updateUserUI();
+  },
 
-    setActiveUser(username);
-    alert(`Welcome back, ${username}!`);
-    location.reload();
-  });
-}
+  logoutUser() {
+    this.clearSession();
+    this.updateUserUI();
+  },
 
-function updateUserUI() {
-  const username = getActiveUser();
-  if (!username) return;
-
-  getUserData(username, (user) => {
-    if (!user) return;
-    const infoBar = document.getElementById("user-info");
-    if (infoBar) {
-      infoBar.innerHTML = `👤 ${user.username} | 🎮 Games Played: ${user.gamesPlayed}`;
+  incrementGamesPlayed() {
+    const session = this.getSession();
+    if (!session) return;
+    const users = this.loadAllUsers();
+    const user = users[session.username];
+    if (user) {
+      user.gamesPlayed = (user.gamesPlayed || 0) + 1;
+      this.saveAllUsers(users);
+      this.updateUserUI();
     }
-  });
-}
+  },
 
-function incrementGamesPlayed() {
-  const username = getActiveUser();
-  if (!username) return;
+  updateUserUI() {
+    const session = this.getSession();
+    const info = document.getElementById("user-info");
+    const loginPopup = document.getElementById("login-popup");
 
-  getUserData(username, (user) => {
-    if (!user) return;
-    user.gamesPlayed++;
-    user.lastPlayed = new Date().toISOString();
-    saveUserData(user);
-    updateUserUI();
-  });
-}
+    if (session) {
+      const users = this.loadAllUsers();
+      const user = users[session.username];
+      if (!user) {
+        this.logoutUser();
+        return;
+      }
 
-window.userData = {
-  registerUser,
-  loginUser,
-  logoutUser,
-  getActiveUser,
-  updateUserUI,
-  incrementGamesPlayed,
+      info.innerHTML = `
+        👤 ${session.username} | 🧩 Games: ${user.gamesPlayed || 0}
+        <button style="margin-left:10px;" onclick="userData.logoutUser()">Logout</button>
+      `;
+      loginPopup.style.display = "none";
+    } else {
+      info.innerHTML = "";
+      loginPopup.style.display = "block";
+    }
+  }
 };
+
+// Auto login update on load
+document.addEventListener("DOMContentLoaded", () => {
+  userData.updateUserUI();
+});
