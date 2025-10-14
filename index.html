@@ -410,6 +410,20 @@ body {
 
 </div>
 
+  <div id="login-popup">
+  <input id="username" placeholder="Username">
+  <input id="password" type="password" placeholder="Password">
+  <button onclick="userData.loginUser(
+    document.getElementById('username').value,
+    document.getElementById('password').value
+  )">Login</button>
+  <button onclick="userData.registerUser(
+    document.getElementById('username').value,
+    document.getElementById('password').value
+  )">Register</button>
+</div>
+
+
   <!-- users -->
 <script src="userData.js"></script>
 
@@ -763,7 +777,8 @@ function resizeTileToSlot(tile, size, row, col) {
         document.getElementById("winPopup").style.display = "block";
         document.getElementById("overlay").style.display = "block";
         document.getElementById("overlayBlur").style.display = "block";
-        
+
+        userData.incrementGamesPlayed();
         launchConfetti();
       }
     }
