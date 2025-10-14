@@ -572,47 +572,7 @@ body {
   });
 
       // dataplay
-      
-  function openPopup(action) {
-    currentAction = action;
-    popupTitle.textContent = action === "login" ? "Login" : "Register";
-    authMessage.textContent = "";
-    usernameInput.value = "";
-    passwordInput.value = "";
-    authPopup.style.display = "block";
-  }
-
-  function closePopupBox() {
-    authPopup.style.display = "none";
-  }
-
-  function showMessage(msg, color) {
-    authMessage.style.color = color;
-    authMessage.textContent = msg;
-  }
-
-  function logoutUser() {
-    localStorage.removeItem("currentUser");
-    userProfile.style.display = "none";
-    authSection.style.display = "block";
-    [pickBtn, modeBtn, startBtn].forEach(btn => {
-      if (btn) btn.disabled = true;
-      });
-  }
-});
-
-    }); // ← penutup DOMContentLoaded
-
-// ==== GLOBAL FIX ====
-
 function showProfile(username) {
-  const userProfile = document.getElementById("userProfile");
-  const userWelcome = document.getElementById("userWelcome");
-  const authSection = document.getElementById("authSection");
-  const pickBtn = document.querySelector("#templateBtn");
-  const modeBtn = document.querySelector("#modeBtn");
-  const startBtn = document.querySelector("#startBtn");
-
   userWelcome.innerHTML = `<b>Welcome, ${username}</b>`;
   userProfile.style.display = "block";
   authSection.style.display = "none";
@@ -648,7 +608,34 @@ function incrementGamesPlayed() {
     gamesPlayedEl.textContent = `🎮 Games Played: ${stats[username].gamesPlayed}`;
   }
 }
+      
+  function openPopup(action) {
+    currentAction = action;
+    popupTitle.textContent = action === "login" ? "Login" : "Register";
+    authMessage.textContent = "";
+    usernameInput.value = "";
+    passwordInput.value = "";
+    authPopup.style.display = "block";
+  }
 
+  function closePopupBox() {
+    authPopup.style.display = "none";
+  }
+
+  function showMessage(msg, color) {
+    authMessage.style.color = color;
+    authMessage.textContent = msg;
+  }
+
+  function logoutUser() {
+    localStorage.removeItem("currentUser");
+    userProfile.style.display = "none";
+    authSection.style.display = "block";
+    [pickBtn, modeBtn, startBtn].forEach(btn => {
+      if (btn) btn.disabled = true;
+      });
+  }
+});
     
     const templates = [
       { name: "SN Original", file: "sn-original.jpg" },
@@ -869,7 +856,6 @@ function goHome() {
 
   moveCount++;
   moveDisplay.textContent = moveCount;
-  incrementGamesPlayed()
   checkWin();
 };
 
