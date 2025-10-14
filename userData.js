@@ -1,107 +1,77 @@
-// userData.js
-const userData = {
-  dataKey: "soundness_users",
-  sessionKey: "soundness_session",
+<script>
 
-  loadAllUsers() {
-    return JSON.parse(localStorage.getItem(this.dataKey) || "{}");
-  },
-
-  saveAllUsers(users) {
-    localStorage.setItem(this.dataKey, JSON.stringify(users));
-  },
-
-  getSession() {
-    return JSON.parse(localStorage.getItem(this.sessionKey) || "null");
-  },
-
-  setSession(username) {
-    localStorage.setItem(this.sessionKey, JSON.stringify({ username }));
-  },
-
-  clearSession() {
-    localStorage.removeItem(this.sessionKey);
-  },
-
-  registerUser(username, password) {
-    const users = this.loadAllUsers();
-    if (!username || !password) {
-      alert("Please fill username and password!");
-      return;
-    }
-    if (users[username]) {
-      alert("Username already exists!");
-      return;
-    }
-    users[username] = {
-      password,
-      gamesPlayed: 0,
-      createdAt: new Date().toISOString()
-    };
-    this.saveAllUsers(users);
-    this.setSession(username);
-    alert("Registration successful!");
-    this.updateUserUI();
-  },
-
-  loginUser(username, password) {
-    const users = this.loadAllUsers();
-    if (!users[username]) {
-      alert("User not found!");
-      return;
-    }
-    if (users[username].password !== password) {
-      alert("Incorrect password!");
-      return;
-    }
-    this.setSession(username);
-    alert("Login successful!");
-    this.updateUserUI();
-  },
-
-  logoutUser() {
-    this.clearSession();
-    this.updateUserUI();
-  },
-
-  incrementGamesPlayed() {
-    const session = this.getSession();
-    if (!session) return;
-    const users = this.loadAllUsers();
-    const user = users[session.username];
-    if (user) {
-      user.gamesPlayed = (user.gamesPlayed || 0) + 1;
-      this.saveAllUsers(users);
-      this.updateUserUI();
-    }
-  },
-
-  updateUserUI() {
-    const session = this.getSession();
-    const info = document.getElementById("user-info");
-    const loginPopup = document.getElementById("login-popup");
-
-    if (session) {
-      const users = this.loadAllUsers();
-      const user = users[session.username];
-      if (!user) {
-        this.logoutUser();
-        return;
-      }
-
-      info.innerHTML = `
-        👤 ${session.username} | 🧩 Games: ${user.gamesPlayed || 0}
-        <button style="margin-left:10px;" onclick="userData.logoutUser()">Logout</button>
-      `;
-      loginPopup.style.display = "none";
-    } else {
-      info.innerHTML = "";
-      loginPopup.style.display = "block";
-    }
-  }
+const defaultUserData = {
+  username: "Guest",
+  lastTemplate: null,
+  lastMode: null,
+  bestTime: null,
+  bestMoves: null,
+  completed: []
 };
 
-// Auto login update on load
-document.addEventListener("DOMContentLoaded", () => {
-  userData.updateUserUI();
+function loadUserData() {
+  const saved = localStorage.getItem("soundnessUserData");
+  if (saved) {
+    try {
+      return JSON.parse(saved);
+    } catch {
+      return { ...defaultUserData };
+    }
+  } else {
+    localStorage.setItem("soundnessUserData", JSON.stringify(defaultUserData));
+    return { ...defaultUserData };
+  }
+}
+
+let userData = loadUserData();
+
+function saveUserData() {
+  localStorage.setItem("soundnessUserData", JSON.stringify(userData));
+}
+
+function recordWin(templateName, time, moves) {
+  if (!userData.completed.includes(templateName))
+    userData.completed.push(templateName);
+
+  if (
+    !userData.bestTime ||
+    time < userData.bestTime ||
+    (time === userData.bestTime && moves < userData.bestMoves)
+  ) {
+    userData.bestTime = time;
+    userData.bestMoves = moves;
+  }
+
+  userData.lastTemplate = selectedTemplate?.name || null;
+  userData.lastMode = puzzleSize || null;
+  saveUserData();
+}
+
+function showUserData() {
+  console.log("User Data:", userData);
+}
+
+window.addEventListener("load", () => {
+  userData = loadUserData();
+
+  if (userData.lastTemplate && userData.lastMode) {
+    selectedTemplate = templates.find(
+      t => t.name === userData.lastTemplate
+    ) || null;
+    puzzleSize = userData.lastMode;
+
+    if (selectedTemplate) {
+      document.getElementById("templateBtn").innerText = selectedTemplate.name;
+      document.getElementById("templateBtn").classList.add("selected");
+    }
+
+    if (puzzleSize) {
+      document.getElementById("modeBtn").innerText = `${puzzleSize} x ${puzzleSize}`;
+      document.getElementById("modeBtn").classList.add("selected");
+    }
+
+    updateStartButton();
+  }
 });
+</script>
+
