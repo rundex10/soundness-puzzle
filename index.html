@@ -401,6 +401,8 @@ body {
   </div>
 </div>
 
+<script src="userData.js"></script>
+  
 <canvas id="confetti-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999;"></canvas>
 <div id="overlayBlur"></div>
 
@@ -411,6 +413,31 @@ body {
   Pick your favorite Theme, drag pieces, share the victory, and enjoy the ride.<br><br>
   No pressure. No leaderboard. Just vibes 🐬🧩
 </p>
+
+<!-- LOGIN -->
+<div id="authSection">
+  <button id="loginBtn" class="retro-btn">Login</button>
+  <button id="registerBtn" class="retro-btn">Register</button>
+</div>
+
+<!-- POPUP -->
+<div id="authPopup" class="popup">
+  <h3 id="popupTitle">Login</h3>
+  <input type="text" id="usernameInput" placeholder="Username" class="auth-input"><br>
+  <input type="password" id="passwordInput" placeholder="Password" class="auth-input"><br>
+  <button id="submitAuth" class="retro-btn">Submit</button>
+  <button id="closePopup" class="retro-btn">Close</button>
+  <p id="authMessage" style="margin-top:8px; color:#444; font-size:14px;"></p>
+</div>
+
+<!-- CARD -->
+<div id="userCard" style="display:none;">
+  <div class="user-card-inner">
+    <h3 id="userName"></h3>
+    <p id="userStats"></p>
+    <button id="logoutBtn" class="retro-btn">Logout</button>
+  </div>
+</div>
 
 <div id="love">
   <img src="left-mascot.png" class="mascot mascot-left">
@@ -745,7 +772,9 @@ function resizeTileToSlot(tile, size, row, col) {
         document.getElementById("winPopup").style.display = "block";
         document.getElementById("overlay").style.display = "block";
         document.getElementById("overlayBlur").style.display = "block";
-        
+
+        recordWin(selectedTemplate.name, timer, moveCount);
+        saveUserData();
         launchConfetti();
       }
     }
