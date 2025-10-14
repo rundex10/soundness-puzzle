@@ -400,38 +400,8 @@ body {
     <div id="marquee">🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬</div>
   </div>
 
-    <div id="user-info" style="
-  text-align:center;
-  margin: 10px;
-  font-weight: 600;
-  font-family: 'Poppins', sans-serif;
-  color: #003366;
-"></div>
-
-</div>
-
-  <div id="login-popup">
-  <input id="username" placeholder="Username">
-  <input id="password" type="password" placeholder="Password">
-  <button onclick="userData.loginUser(
-    document.getElementById('username').value,
-    document.getElementById('password').value
-  )">Login</button>
-  <button onclick="userData.registerUser(
-    document.getElementById('username').value,
-    document.getElementById('password').value
-  )">Register</button>
-</div>
-
-
   <!-- users -->
 <script src="userData.js"></script>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  userData.updateUserUI();
-});
-</script>
 
 <canvas id="confetti-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999;"></canvas>
 <div id="overlayBlur"></div>
@@ -777,8 +747,7 @@ function resizeTileToSlot(tile, size, row, col) {
         document.getElementById("winPopup").style.display = "block";
         document.getElementById("overlay").style.display = "block";
         document.getElementById("overlayBlur").style.display = "block";
-
-        userData.incrementGamesPlayed();
+        
         launchConfetti();
       }
     }
