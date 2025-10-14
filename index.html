@@ -1,3 +1,5 @@
+perhatikan lagi scriptnya apa yang salah
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -510,7 +512,6 @@ body {
   const userProfile = document.getElementById("userProfile");
   const userWelcome = document.getElementById("userWelcome");
   const logoutBtn = document.getElementById("logoutBtn");
-  const authSection = document.getElementById("authSection");
 
   const pickBtn = document.querySelector("#templateBtn");
   const modeBtn = document.querySelector("#modeBtn");
@@ -598,21 +599,18 @@ function incrementGamesPlayed() {
   const username = localStorage.getItem("currentUser");
   if (!username) return;
 
-  let stats = JSON.parse(localStorage.getItem("userStats")) || {};
-  if (!stats[username]) stats[username] = { gamesPlayed: 0, wins: 0 };
+  const stats = JSON.parse(localStorage.getItem("stats") || "{}");
+  if (!stats[username]) stats[username] = { gamesPlayed: 0 };
 
   stats[username].gamesPlayed += 1;
+  localStorage.setItem("stats", JSON.stringify(stats));
 
-  localStorage.setItem("userStats", JSON.stringify(stats));
-
-  const gamesPlayedElem = document.getElementById("gamesPlayed");
-  if (gamesPlayedElem)
-    gamesPlayedElem.textContent = `🎮 Games Played: ${stats[username].gamesPlayed}`;
-
-  console.log("Games Played updated:", stats[username].gamesPlayed);
- }
+  const gamesPlayedEl = document.getElementById("gamesPlayed");
+  if (gamesPlayedEl) {
+    gamesPlayedEl.textContent = `🎮 Games Played: ${stats[username].gamesPlayed}`;
+  }
 }
-                              
+      
   function openPopup(action) {
     currentAction = action;
     popupTitle.textContent = action === "login" ? "Login" : "Register";
@@ -638,7 +636,6 @@ function incrementGamesPlayed() {
     [pickBtn, modeBtn, startBtn].forEach(btn => {
       if (btn) btn.disabled = true;
       });
-    goHome();
   }
 });
     
@@ -757,6 +754,7 @@ function incrementGamesPlayed() {
 
   document.getElementById("templateBtn").innerText = "Pick a Theme";
   document.getElementById("modeBtn").innerText = "Mode";
+
   document.getElementById("startBtn").disabled = true;
 
   board.innerHTML = "";
@@ -933,8 +931,6 @@ function resizeTileToSlot(tile, size, row, col) {
         document.getElementById("winPopup").style.display = "block";
         document.getElementById("overlay").style.display = "block";
         document.getElementById("overlayBlur").style.display = "block";
-
-        incrementGamesPlayed();
 
         recordWin(selectedTemplate.name, timer, moveCount);
         saveUserData();
