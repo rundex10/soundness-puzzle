@@ -595,7 +595,7 @@ function showProfile(username) {
 
 function incrementGamesPlayed() {
   const username = localStorage.getItem("currentUser");
-  if (!username) return;
+  if (!currentUser) return;
 
   const stats = JSON.parse(localStorage.getItem("stats") || "{}");
   if (!stats[username]) stats[username] = { gamesPlayed: 0 };
