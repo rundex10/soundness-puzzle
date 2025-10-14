@@ -628,15 +628,6 @@ function incrementGamesPlayed() {
     authMessage.textContent = msg;
   }
 
-  function showProfile(username) {
-    userWelcome.innerHTML = `<b>Welcome, ${username}</b>`;
-    userProfile.style.display = "block";
-    authSection.style.display = "none";
-    [pickBtn, modeBtn, startBtn].forEach(btn => {
-      if (btn) btn.disabled = false;
-    });
-  }
-
   function logoutUser() {
     localStorage.removeItem("currentUser");
     userProfile.style.display = "none";
