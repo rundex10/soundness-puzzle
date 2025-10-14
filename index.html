@@ -401,13 +401,14 @@ body {
 }
 
     .user-card {
-  display: inline-block;
-  background: rgba(255,255,255,0.85);
-  border: 1px solid #ccc;
-  padding: 10px 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  margin-bottom: 10px;
+  background: #f7f9fc;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  margin: 20px auto;
+  transition: 0.3s;
 }
 
   </style>
@@ -511,7 +512,7 @@ body {
   const userWelcome = document.getElementById("userWelcome");
   const logoutBtn = document.getElementById("logoutBtn");
 
-  const pickBtn = document.querySelector("#pickTemplate");
+  const pickBtn = document.querySelector("#templateBtn");
   const modeBtn = document.querySelector("#modeBtn");
   const startBtn = document.querySelector("#startBtn");
 
