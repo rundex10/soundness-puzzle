@@ -916,6 +916,8 @@ function resizeTileToSlot(tile, size, row, col) {
       return arr;
     }
     function checkWin() {
+      incrementGamesPlayed();
+
       let correct = 0;
       for (let i = 0; i < board.children.length; i++) {
         const tile = board.children[i].firstChild;
@@ -923,6 +925,7 @@ function resizeTileToSlot(tile, size, row, col) {
       }
       if (correct === puzzleSize * puzzleSize) {
         clearInterval(interval);
+        
         document.getElementById("winThumb").src = selectedTemplate.file;
         document.getElementById("winStats").textContent = `Time: ${timer}s - Attempts: ${moveCount}`;
         document.getElementById("winPopup").style.display = "block";
@@ -931,7 +934,6 @@ function resizeTileToSlot(tile, size, row, col) {
 
         recordWin(selectedTemplate.name, timer, moveCount);
         saveUserData();
-        incrementGamesPlayed();
         launchConfetti();
       }
     }
