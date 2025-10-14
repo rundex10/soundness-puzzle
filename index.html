@@ -390,6 +390,26 @@ body {
    border-radius: 8px;     
    display: block;
 }
+
+    .auth-input {
+  padding: 8px;
+  width: 200px;
+  margin: 6px 0;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+    .user-card {
+  display: inline-block;
+  background: rgba(255,255,255,0.85);
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  margin-bottom: 10px;
+}
+
   </style>
   
 </head>
@@ -412,30 +432,28 @@ body {
   No pressure. No leaderboard. Just vibes 🐬🧩
 </p>
 
-<!-- LOGIN -->
+<!-- AUTH SECTION -->
 <div id="authSection">
   <button id="loginBtn" class="retro-btn">Login</button>
   <button id="registerBtn" class="retro-btn">Register</button>
 </div>
 
-<!-- POPUP -->
+<!-- POPUP LOGIN / REGISTER -->
 <div id="authPopup" class="popup">
   <h3 id="popupTitle">Login</h3>
   <input type="text" id="usernameInput" placeholder="Username" class="auth-input"><br>
   <input type="password" id="passwordInput" placeholder="Password" class="auth-input"><br>
   <button id="submitAuth" class="retro-btn">Submit</button>
   <button id="closePopup" class="retro-btn">Close</button>
-  <p id="authMessage" style="margin-top:8px; color:#444; font-size:14px;"></p>
+  <p id="authMessage" style="margin-top:8px; color:#333; font-size:14px;"></p>
 </div>
 
-<!-- CARD -->
-<div id="userCard" style="display:none;">
-  <div class="user-card-inner">
-    <h3 id="userName"></h3>
-    <p id="userStats"></p>
-    <button id="logoutBtn" class="retro-btn">Logout</button>
-  </div>
+<!-- USER PROFILE -->
+<div id="userProfile" class="user-card" style="display:none;">
+  <p id="userWelcome"></p>
+  <button id="logoutBtn" class="retro-btn">Logout</button>
 </div>
+
 
 <div id="love">
   <img src="left-mascot.png" class="mascot mascot-left">
@@ -478,9 +496,118 @@ body {
     <button class="retro-btn" onclick="goHome()">Back to Menu</button>
 </div>
 
-  <script src="userData.js"></script>
-
   <script>
+    document.addEventListener("DOMContentLoaded", function() {
+  const loginBtn = document.getElementById("loginBtn");
+  const registerBtn = document.getElementById("registerBtn");
+  const authPopup = document.getElementById("authPopup");
+  const popupTitle = document.getElementById("popupTitle");
+  const submitAuth = document.getElementById("submitAuth");
+  const closePopup = document.getElementById("closePopup");
+  const authMessage = document.getElementById("authMessage");
+  const usernameInput = document.getElementById("usernameInput");
+  const passwordInput = document.getElementById("passwordInput");
+  const userProfile = document.getElementById("userProfile");
+  const userWelcome = document.getElementById("userWelcome");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  const pickBtn = document.querySelector("#pickTemplate");
+  const modeBtn = document.querySelector("#modeBtn");
+  const startBtn = document.querySelector("#startBtn");
+
+  let currentAction = "login";
+
+  // Disable game buttons initially
+  [pickBtn, modeBtn, startBtn].forEach(btn => {
+    if (btn) btn.disabled = true;
+  });
+
+  // Check login state
+  const currentUser = localStorage.getItem("currentUser");
+  if (currentUser) {
+    showProfile(currentUser);
+  }
+
+  loginBtn.addEventListener("click", () => openPopup("login"));
+  registerBtn.addEventListener("click", () => openPopup("register"));
+  closePopup.addEventListener("click", closePopupBox);
+  logoutBtn.addEventListener("click", logoutUser);
+
+  submitAuth.addEventListener("click", () => {
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    if (!username || !password) {
+      showMessage("Please fill all fields", "red");
+      return;
+    }
+
+    const users = JSON.parse(localStorage.getItem("users") || "{}");
+
+    if (currentAction === "login") {
+      if (users[username] && users[username] === password) {
+        localStorage.setItem("currentUser", username);
+        showMessage("✅ Login successful!", "green");
+        setTimeout(() => {
+          closePopupBox();
+          showProfile(username);
+        }, 800);
+      } else {
+        showMessage("❌ Wrong username or password", "red");
+      }
+    } else {
+      if (users[username]) {
+        showMessage("⚠️ Username already exists", "orange");
+      } else {
+        users[username] = password;
+        localStorage.setItem("users", JSON.stringify(users));
+        localStorage.setItem("currentUser", username);
+        showMessage("✅ Registration successful!", "green");
+        setTimeout(() => {
+          closePopupBox();
+          showProfile(username);
+        }, 800);
+      }
+    }
+  });
+
+  function openPopup(action) {
+    currentAction = action;
+    popupTitle.textContent = action === "login" ? "Login" : "Register";
+    authMessage.textContent = "";
+    usernameInput.value = "";
+    passwordInput.value = "";
+    authPopup.style.display = "block";
+  }
+
+  function closePopupBox() {
+    authPopup.style.display = "none";
+  }
+
+  function showMessage(msg, color) {
+    authMessage.style.color = color;
+    authMessage.textContent = msg;
+  }
+
+  function showProfile(username) {
+    userWelcome.innerHTML = `<b>Welcome, ${username}</b>`;
+    userProfile.style.display = "block";
+    authSection.style.display = "none";
+    [pickBtn, modeBtn, startBtn].forEach(btn => {
+      if (btn) btn.disabled = false;
+    });
+  }
+
+  function logoutUser() {
+    localStorage.removeItem("currentUser");
+    userProfile.style.display = "none";
+    authSection.style.display = "block";
+    [pickBtn, modeBtn, startBtn].forEach(btn => {
+      if (btn) btn.disabled = true;
+      });
+  }
+});
+    
     const templates = [
       { name: "SN Original", file: "sn-original.jpg" },
       { name: "SN Graffiti", file: "sn-graffiti.png" },
