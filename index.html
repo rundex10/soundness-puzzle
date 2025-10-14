@@ -572,6 +572,44 @@ body {
     }
   });
 
+      // dataplay
+function showProfile(username) {
+  userWelcome.innerHTML = `<b>Welcome, ${username}</b>`;
+  userProfile.style.display = "block";
+  authSection.style.display = "none";
+
+  const stats = JSON.parse(localStorage.getItem("stats") || "{}");
+  const played = stats[username]?.gamesPlayed || 0;
+
+  let gamesPlayedEl = document.getElementById("gamesPlayed");
+  if (!gamesPlayedEl) {
+    gamesPlayedEl = document.createElement("p");
+    gamesPlayedEl.id = "gamesPlayed";
+    userProfile.appendChild(gamesPlayedEl);
+  }
+  gamesPlayedEl.textContent = `🎮 Games Played: ${played}`;
+
+  [pickBtn, modeBtn, startBtn].forEach(btn => {
+    if (btn) btn.disabled = false;
+  });
+}
+
+function incrementGamesPlayed() {
+  const username = localStorage.getItem("currentUser");
+  if (!username) return;
+
+  const stats = JSON.parse(localStorage.getItem("stats") || "{}");
+  if (!stats[username]) stats[username] = { gamesPlayed: 0 };
+
+  stats[username].gamesPlayed += 1;
+  localStorage.setItem("stats", JSON.stringify(stats));
+
+  const gamesPlayedEl = document.getElementById("gamesPlayed");
+  if (gamesPlayedEl) {
+    gamesPlayedEl.textContent = `🎮 Games Played: ${stats[username].gamesPlayed}`;
+  }
+}
+      
   function openPopup(action) {
     currentAction = action;
     popupTitle.textContent = action === "login" ? "Login" : "Register";
@@ -903,6 +941,7 @@ function resizeTileToSlot(tile, size, row, col) {
 
         recordWin(selectedTemplate.name, timer, moveCount);
         saveUserData();
+        incrementGamesPlayed();
         launchConfetti();
       }
     }
