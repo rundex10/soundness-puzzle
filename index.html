@@ -923,7 +923,6 @@ function resizeTileToSlot(tile, size, row, col) {
       }
       if (correct === puzzleSize * puzzleSize) {
         clearInterval(interval);
-        incrementGamesPlayed();
 
         document.getElementById("winThumb").src = selectedTemplate.file;
         document.getElementById("winStats").textContent = `Time: ${timer}s - Attempts: ${moveCount}`;
