@@ -634,6 +634,7 @@ function incrementGamesPlayed() {
     [pickBtn, modeBtn, startBtn].forEach(btn => {
       if (btn) btn.disabled = true;
       });
+    goHome();
   }
 });
     
@@ -752,7 +753,6 @@ function incrementGamesPlayed() {
 
   document.getElementById("templateBtn").innerText = "Pick a Theme";
   document.getElementById("modeBtn").innerText = "Mode";
-
   document.getElementById("startBtn").disabled = true;
 
   board.innerHTML = "";
@@ -929,6 +929,8 @@ function resizeTileToSlot(tile, size, row, col) {
         document.getElementById("winPopup").style.display = "block";
         document.getElementById("overlay").style.display = "block";
         document.getElementById("overlayBlur").style.display = "block";
+
+        incrementGamesPlayed();
 
         recordWin(selectedTemplate.name, timer, moveCount);
         saveUserData();
