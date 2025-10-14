@@ -601,7 +601,18 @@ body {
   }
 });
 
-    function showProfile(username) {
+    }); // ← penutup DOMContentLoaded
+
+// ==== GLOBAL FIX ====
+
+function showProfile(username) {
+  const userProfile = document.getElementById("userProfile");
+  const userWelcome = document.getElementById("userWelcome");
+  const authSection = document.getElementById("authSection");
+  const pickBtn = document.querySelector("#templateBtn");
+  const modeBtn = document.querySelector("#modeBtn");
+  const startBtn = document.querySelector("#startBtn");
+
   userWelcome.innerHTML = `<b>Welcome, ${username}</b>`;
   userProfile.style.display = "block";
   authSection.style.display = "none";
@@ -637,6 +648,7 @@ function incrementGamesPlayed() {
     gamesPlayedEl.textContent = `🎮 Games Played: ${stats[username].gamesPlayed}`;
   }
 }
+
     
     const templates = [
       { name: "SN Original", file: "sn-original.jpg" },
