@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  
+
   <title>Soundness Puzzle</title>
-  
+
   <style>
     @font-face {
   font-family: 'SnFont';
   src: url('sn-font.ttf') format('truetype');
 }
-    
+
 body {
   font-family: 'SnFont', sans-serif;
   background: linear-gradient(135deg, #a6c1ee 0%, #ced8ed 50%, #fcfdff 100%);
@@ -90,12 +90,12 @@ body {
    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
    transition: all 0.2s ease;
 }
-    
+
 .retro-btn:hover {
    transform: translateY(-2px);
    box-shadow: 0 0 12px #28a745, 0 0 24px #28a745, 0 0 36px rgba(40,167,69,0.7);
 }
-    
+
 .retro-btn:active {
    transform: translateY(0);
    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
@@ -123,12 +123,12 @@ body {
    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
    transition: all 0.2s ease;
 }
-    
+
 .sharex-btn:hover {
    transform: translateY(-2px);
    box-shadow: 0 0 12px #28a745, 0 0 24px #28a745, 0 0 36px rgba(40,167,69,0.7);
 }
-    
+
 .sharex-btn:active {
    transform: translateY(0);
    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
@@ -162,7 +162,7 @@ body {
    0% { background-position: 0% 50%; }
    100% { background-position: 100% 50%; }
 }
-    
+
 #topBar {
    margin-top: 15px;
    display: none;
@@ -173,14 +173,14 @@ body {
    font-weight: bold;
    color: #444;
 }
-    
+
 #topBar div {
    background: #fff;
    padding: 6px 14px;
    border-radius: 12px;
    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-    
+
 #board {
    margin: 20px auto;
    display: grid;
@@ -237,7 +237,7 @@ body {
    animation: fadeIn 0.25s ease-out;
    display: none;
 }
-    
+
 @keyframes fadeIn {
    from {opacity: 0; transform: translate(-50%, -48%);}
    to {opacity: 1; transform: translate(-50%, -50%);}
@@ -260,11 +260,11 @@ body {
    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
    transition: transform 0.2s;
 }
-    
+
 .template-item:hover {
    transform: translateY(-4px);
 }
-    
+
 .template-item img {
    width: 100%;
    border-radius: 8px;
@@ -282,7 +282,7 @@ body {
    z-index: 900;
    display: none;
 }
-    
+
 #winPopup img {
    width: 220px;
    margin-bottom: 15px;
@@ -390,29 +390,8 @@ body {
    border-radius: 8px;     
    display: block;
 }
+  </style>
 
-    .auth-input {
-  padding: 8px;
-  width: 200px;
-  margin: 6px 0;
-  border: 1px solid #aaa;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-    .user-card {
-  background: #f7f9fc;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  padding: 20px;
-  width: 300px;
-  text-align: center;
-  margin: 20px auto;
-  transition: 0.3s;
-}
-
-</style>
-  
 </head>
 <body>
   <div id="header-bar">
@@ -429,32 +408,9 @@ body {
   Soundness Puzzle isn’t about grinding, speedrunning, or proving anything.<br>
   It’s just an unofficial fun little game for all Soundy friends.<br>
   Made with love, for the vibes.<br>
-  Pick your favorite Theme, drag pieces, share the victory, and enjoy the ride.
-</p>
-
-<!-- AUTH SECTION -->
-<div id="authSection">
-  <button id="loginBtn" class="retro-btn">Login</button>
-  <button id="registerBtn" class="retro-btn">Register</button>
-</div>
-
-<!-- POPUP LOGIN / REGISTER -->
-<div id="authPopup" class="popup">
-  <h3 id="popupTitle">Login</h3>
-  <input type="text" id="usernameInput" placeholder="Username" class="auth-input"><br>
-  <input type="password" id="passwordInput" placeholder="Password" class="auth-input"><br>
-  <button id="submitAuth" class="retro-btn">Submit</button>
-  <button id="closePopup" class="retro-btn">Close</button>
-  <p id="authMessage" style="margin-top:8px; color:#333; font-size:14px;"></p>
-</div>
-
-<!-- USER PROFILE -->
-<div id="userProfile" class="user-card" style="display:none;">
-  <p id="userWelcome"></p>
-  <button id="logoutBtn" class="retro-btn">Logout</button>
-</div>
-
-
+  Pick your favorite Theme, drag pieces, share the victory, and enjoy the ride.<br><br>
+  No pressure. No leaderboard. Just vibes 🐬🧩
+</p
 <div id="love">
   <img src="left-mascot.png" class="mascot mascot-left">
     <div class="love-box">
@@ -496,148 +452,7 @@ body {
     <button class="retro-btn" onclick="goHome()">Back to Menu</button>
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-  const loginBtn = document.getElementById("loginBtn");
-  const registerBtn = document.getElementById("registerBtn");
-  const authPopup = document.getElementById("authPopup");
-  const popupTitle = document.getElementById("popupTitle");
-  const submitAuth = document.getElementById("submitAuth");
-  const closePopup = document.getElementById("closePopup");
-  const authMessage = document.getElementById("authMessage");
-  const usernameInput = document.getElementById("usernameInput");
-  const passwordInput = document.getElementById("passwordInput");
-  const userProfile = document.getElementById("userProfile");
-  const userWelcome = document.getElementById("userWelcome");
-  const logoutBtn = document.getElementById("logoutBtn");
-  const authSection = document.getElementById("authSection");
-
-  const pickBtn = document.querySelector("#templateBtn");
-  const modeBtn = document.querySelector("#modeBtn");
-  const startBtn = document.querySelector("#startBtn");
-
-  let currentAction = "login";
-
-  // Disable game buttons initially
-  [pickBtn, modeBtn, startBtn].forEach(btn => {
-    if (btn) btn.disabled = true;
-  });
-
-  // Check login state
-  const currentUser = localStorage.getItem("currentUser");
-  if (currentUser) {
-    showProfile(currentUser);
-  }
-
-  loginBtn.addEventListener("click", () => openPopup("login"));
-  registerBtn.addEventListener("click", () => openPopup("register"));
-  closePopup.addEventListener("click", closePopupBox);
-  logoutBtn.addEventListener("click", logoutUser);
-
-  submitAuth.addEventListener("click", () => {
-    const username = usernameInput.value.trim();
-    const password = passwordInput.value.trim();
-
-    if (!username  !password) {
-      showMessage("Please fill all fields", "red");
-      return;
-    }
-
-    const users = JSON.parse(localStorage.getItem("users")  "{}");
-
-    if (currentAction === "login") {
-      if (users[username] && users[username] === password) {
-        localStorage.setItem("currentUser", username);
-        showMessage("✅ Login successful!", "green");
-        setTimeout(() => {
-          closePopupBox();
-          showProfile(username);
-        }, 800);
-      } else {
-        showMessage("❌ Wrong username or password", "red");
-      }
-    } else {
-      if (users[username]) {
-        showMessage("⚠️ Username already exists", "orange");
-      } else {
-        users[username] = password;
-        localStorage.setItem("users", JSON.stringify(users));
-        localStorage.setItem("currentUser", username);
-        showMessage("✅ Registration successful!", "green");
-        setTimeout(() => {
-          closePopupBox();
-          showProfile(username);
-        }, 800);
-      }
-    }
-  });
-
-      // dataplay
-function showProfile(username) {
-  userWelcome.innerHTML = <b>Welcome, ${username}</b>;
-  userProfile.style.display = "block";
-  authSection.style.display = "none";
-
-  const stats = JSON.parse(localStorage.getItem("stats")  "{}");
-  const played = stats[username]?.gamesPlayed  0;
-
-  let gamesPlayedEl = document.getElementById("gamesPlayed");
-  if (!gamesPlayedEl) {
-    gamesPlayedEl = document.createElement("p");
-    gamesPlayedEl.id = "gamesPlayed";
-    userProfile.appendChild(gamesPlayedEl);
-  }
-  gamesPlayedEl.textContent = 🎮 Games Played: ${played};
-
-  [pickBtn, modeBtn, startBtn].forEach(btn => {
-    if (btn) btn.disabled = false;
-  });
-}
-
-function incrementGamesPlayed() {
-  const username = localStorage.getItem("currentUser");
-  if (!username) return;
-  const stats = JSON.parse(localStorage.getItem("stats")  "{}");
-  if (!stats[username]) stats[username] = { gamesPlayed: 0 };
-
-  stats[username].gamesPlayed += 1;
-  localStorage.setItem("stats", JSON.stringify(stats));
-
-  const gamesPlayedEl = document.getElementById("gamesPlayed");
-  if (gamesPlayedEl) {
-    gamesPlayedEl.textContent = `🎮 Games Played: ${stats[username].gamesPlayed}`;
-  }
-}
-      
-  function openPopup(action) {
-    currentAction = action;
-    popupTitle.textContent = action === "login" ? "Login" : "Register";
-    authMessage.textContent = "";
-    usernameInput.value = "";
-    passwordInput.value = "";
-    authPopup.style.display = "block";
-  }
-
-  function closePopupBox() {
-    authPopup.style.display = "none";
-  }
-
-  function showMessage(msg, color) {
-    authMessage.style.color = color;
-    authMessage.textContent = msg;
-  }
-
-  function logoutUser() {
-    localStorage.removeItem("currentUser");
-    userProfile.style.display = "none";
-    authSection.style.display = "block";
-    [pickBtn, modeBtn, startBtn].forEach(btn => {
-      if (btn) btn.disabled = true;
-      });
-    goHome();
-  }
-});
-    
+  <script>
     const templates = [
       { name: "SN Original", file: "sn-original.jpg" },
       { name: "SN Graffiti", file: "sn-graffiti.png" },
@@ -706,7 +521,7 @@ function incrementGamesPlayed() {
   closePopups();
   updateStartButton();
    }
-    
+
     function selectMode(size) {
   puzzleSize = size;
   const btn = document.getElementById("modeBtn");
@@ -753,6 +568,7 @@ function incrementGamesPlayed() {
 
   document.getElementById("templateBtn").innerText = "Pick a Theme";
   document.getElementById("modeBtn").innerText = "Mode";
+
   document.getElementById("startBtn").disabled = true;
 
   board.innerHTML = "";
@@ -792,8 +608,8 @@ function goHome() {
 }
 
     function startGame() {
-    if (!selectedTemplate  !Number.isInteger(puzzleSize)) return;
-      
+    if (!selectedTemplate || !Number.isInteger(puzzleSize)) return;
+
       board.innerHTML = "";
       pieces.innerHTML = "";
       document.getElementById("controls").style.display = "none";
@@ -803,7 +619,7 @@ function goHome() {
       document.getElementById("game-desc").style.display = "none";
       document.getElementById("love").style.display = "none";
       document.getElementById("love").classList.add("hidden");
-      board.style.gridTemplateColumns = repeat(${puzzleSize}, 1fr);
+      board.style.gridTemplateColumns = `repeat(${puzzleSize}, 1fr)`;
 
       const total = puzzleSize * puzzleSize;
       const tileSize = 492 / puzzleSize;
@@ -828,6 +644,7 @@ function goHome() {
     if (!slot.hasChildNodes()) {
       pieces.removeChild(tileOriginal);
       slot.appendChild(tileOriginal);
+
       const size = board.clientWidth / puzzleSize;
       const row = parseInt(slot.dataset.row);
       const col = parseInt(slot.dataset.col);
@@ -861,8 +678,8 @@ function goHome() {
 function resizeTileToSlot(tile, size, row, col) {
   tile.style.width = size + "px";
   tile.style.height = size + "px";
-  tile.style.backgroundSize = ${puzzleSize * 100}% ${puzzleSize * 100}%;
-  tile.style.backgroundPosition = ${(col / (puzzleSize - 1)) * 100}% ${(row / (puzzleSize - 1)) * 100}%;
+  tile.style.backgroundSize = `${puzzleSize * 100}% ${puzzleSize * 100}%`;
+  tile.style.backgroundPosition = `${(col / (puzzleSize - 1)) * 100}% ${(row / (puzzleSize - 1)) * 100}%`;
 }
         board.appendChild(slot);
       }
@@ -891,12 +708,12 @@ function resizeTileToSlot(tile, size, row, col) {
   div.id = "tile" + i;
   div.dataset.id = i;
   div.draggable = true;
-  div.style.backgroundImage = url(${selectedTemplate.file});
-  div.style.backgroundSize = ${puzzleSize * 100}% ${puzzleSize * 100}%;
+  div.style.backgroundImage = `url(${selectedTemplate.file})`;
+  div.style.backgroundSize = `${puzzleSize * 100}% ${puzzleSize * 100}%`;
 
   const x = i % puzzleSize;
   const y = Math.floor(i / puzzleSize);
-  div.style.backgroundPosition = ${(x / (puzzleSize - 1)) * 100}% ${(y / (puzzleSize - 1)) * 100}%;
+  div.style.backgroundPosition = `${(x / (puzzleSize - 1)) * 100}% ${(y / (puzzleSize - 1)) * 100}%`;
 
   div.style.width = size + "px";
   div.style.height = size + "px";
@@ -914,7 +731,7 @@ function resizeTileToSlot(tile, size, row, col) {
       }
       return arr;
     }
-  function checkWin() {
+    function checkWin() {
       let correct = 0;
       for (let i = 0; i < board.children.length; i++) {
         const tile = board.children[i].firstChild;
@@ -922,17 +739,12 @@ function resizeTileToSlot(tile, size, row, col) {
       }
       if (correct === puzzleSize * puzzleSize) {
         clearInterval(interval);
-
         document.getElementById("winThumb").src = selectedTemplate.file;
-        document.getElementById("winStats").textContent = Time: ${timer}s - Attempts: ${moveCount};
+        document.getElementById("winStats").textContent = `Time: ${timer}s - Attempts: ${moveCount}`;
         document.getElementById("winPopup").style.display = "block";
         document.getElementById("overlay").style.display = "block";
         document.getElementById("overlayBlur").style.display = "block";
 
-        incrementGamesPlayed();
-
-        recordWin(selectedTemplate.name, timer, moveCount);
-        saveUserData();
         launchConfetti();
       }
     }
@@ -952,7 +764,7 @@ function stopConfetti() {
 }
 
 function launchConfetti() {
-  
+
   stopConfetti();
 
   const canvas = document.getElementById("confetti-canvas");
@@ -960,6 +772,7 @@ function launchConfetti() {
   canvas.style.display = "block";
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+
   const confettis = [];
   const colors = ["#ff595e","#ffca3a","#8ac926","#1982c4","#6a4c93","#ff99c8"];
 
@@ -1014,3 +827,5 @@ This is fan-made game built by community to support @SoundnessLabs 🐬
   window.open(shareUrl, "_blank");
 }
   </script>
+</body>
+</html>
