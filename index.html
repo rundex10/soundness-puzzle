@@ -807,8 +807,6 @@ function goHome() {
       document.getElementById("love").classList.add("hidden");
       board.style.gridTemplateColumns = `repeat(${puzzleSize}, 1fr)`;
 
-      incrementGamesPlayed();
-
       const total = puzzleSize * puzzleSize;
       const tileSize = 492 / puzzleSize;
       let tiles = [];
