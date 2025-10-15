@@ -451,7 +451,6 @@ body {
 <!-- USER PROFILE -->
 <div id="userProfile" class="user-card" style="display:none;">
   <p id="userWelcome"></p>
-  <p id="gamesPlayed"></p>
   <button id="logoutBtn" class="retro-btn">Logout</button>
 </div>
 
@@ -577,6 +576,8 @@ function showProfile(username) {
   userWelcome.innerHTML = `<b>Welcome, ${username}</b>`;
   userProfile.style.display = "block";
   authSection.style.display = "none";
+
+  incrementGamesPlayed();
 
   const stats = JSON.parse(localStorage.getItem("stats") || "{}");
   const played = stats[username]?.gamesPlayed || 0;
@@ -932,6 +933,8 @@ function resizeTileToSlot(tile, size, row, col) {
         document.getElementById("winPopup").style.display = "block";
         document.getElementById("overlay").style.display = "block";
         document.getElementById("overlayBlur").style.display = "block";
+
+        incrementGamesPlayed();
 
         recordWin(selectedTemplate.name, timer, moveCount);
         saveUserData();
