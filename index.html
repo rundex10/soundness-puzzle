@@ -609,6 +609,7 @@ function showProfile(username) {
   });
 }
 
+      incrementGamesPlayed();
 function incrementGamesPlayed() {
   const username = localStorage.getItem("currentUser");
   if (!username) return;
@@ -945,8 +946,6 @@ function resizeTileToSlot(tile, size, row, col) {
         document.getElementById("winPopup").style.display = "block";
         document.getElementById("overlay").style.display = "block";
         document.getElementById("overlayBlur").style.display = "block";
-
-        incrementGamesPlayed();
 
         recordWin(selectedTemplate.name, timer, moveCount);
         saveUserData();
