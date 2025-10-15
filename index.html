@@ -421,9 +421,7 @@ body {
     <div id="marquee">🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬 WE LOVE SOUNDNESS 🐬</div>
   </div>
 </div>
-  
-<script src="userData.js"></script>
-  
+
 <canvas id="confetti-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999;"></canvas>
 <div id="overlayBlur"></div>
 
@@ -453,7 +451,6 @@ body {
 <!-- USER PROFILE -->
 <div id="userProfile" class="user-card" style="display:none;">
   <p id="userWelcome"></p>
-  <p id="gamesPlayed"></p>
   <button id="logoutBtn" class="retro-btn">Logout</button>
 </div>
 
@@ -461,7 +458,7 @@ body {
 <div id="love">
   <img src="left-mascot.png" class="mascot mascot-left">
     <div class="love-box">
-      <p>Built by: <a href="https://x.com/murphyefjr" target="_blank">MURPHY</a></p>
+      <p>Made by: <a href="https://x.com/murphyefjr" target="_blank">MURPHY</a></p>
     </div>
   <img src="right-mascot.png" class="mascot mascot-right">
 </div>
@@ -501,7 +498,6 @@ body {
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-  const authSection = document.getElementById("authSection");
   const loginBtn = document.getElementById("loginBtn");
   const registerBtn = document.getElementById("registerBtn");
   const authPopup = document.getElementById("authPopup");
@@ -551,13 +547,6 @@ body {
     if (currentAction === "login") {
       if (users[username] && users[username] === password) {
         localStorage.setItem("currentUser", username);
-
-        const stats = JSON.parse(localStorage.getItem("stats") || "{}");
-        if (!stats[username]) {
-        stats[username] = { gamesPlayed: 0 };
-        localStorage.setItem("stats", JSON.stringify(stats));
-  }
-
         showMessage("✅ Login successful!", "green");
         setTimeout(() => {
           closePopupBox();
@@ -573,11 +562,6 @@ body {
         users[username] = password;
         localStorage.setItem("users", JSON.stringify(users));
         localStorage.setItem("currentUser", username);
-        
-        const stats = JSON.parse(localStorage.getItem("stats") || "{}");
-        stats[username] = { gamesPlayed: 0 };
-        localStorage.setItem("stats", JSON.stringify(stats));
-        
         showMessage("✅ Registration successful!", "green");
         setTimeout(() => {
           closePopupBox();
@@ -589,7 +573,7 @@ body {
 
       // dataplay
 function showProfile(username) {
-  userWelcome.innerHTML = `<b>SM/SN, ${username}</b>`;
+  userWelcome.innerHTML = `<b>Welcome, ${username}</b>`;
   userProfile.style.display = "block";
   authSection.style.display = "none";
 
@@ -608,7 +592,7 @@ function showProfile(username) {
     if (btn) btn.disabled = false;
   });
 }
-      
+
 function incrementGamesPlayed() {
   const username = localStorage.getItem("currentUser");
   if (!username) return;
@@ -616,17 +600,14 @@ function incrementGamesPlayed() {
   const stats = JSON.parse(localStorage.getItem("stats") || "{}");
   if (!stats[username]) stats[username] = { gamesPlayed: 0 };
 
-  // ✅ Tambah 1 game
   stats[username].gamesPlayed += 1;
   localStorage.setItem("stats", JSON.stringify(stats));
 
-  // ✅ Update UI secara langsung tanpa memanggil showProfile()
   const gamesPlayedEl = document.getElementById("gamesPlayed");
   if (gamesPlayedEl) {
     gamesPlayedEl.textContent = `🎮 Games Played: ${stats[username].gamesPlayed}`;
   }
 }
-
       
   function openPopup(action) {
     currentAction = action;
@@ -942,7 +923,6 @@ function resizeTileToSlot(tile, size, row, col) {
       }
       if (correct === puzzleSize * puzzleSize) {
         clearInterval(interval);
-        incrementGamesPlayed();
 
         document.getElementById("winThumb").src = selectedTemplate.file;
         document.getElementById("winStats").textContent = `Time: ${timer}s - Attempts: ${moveCount}`;
