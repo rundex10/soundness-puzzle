@@ -501,6 +501,7 @@ body {
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
+  const authSection = document.getElementById("authSection");
   const loginBtn = document.getElementById("loginBtn");
   const registerBtn = document.getElementById("registerBtn");
   const authPopup = document.getElementById("authPopup");
@@ -550,6 +551,13 @@ body {
     if (currentAction === "login") {
       if (users[username] && users[username] === password) {
         localStorage.setItem("currentUser", username);
+
+        const stats = JSON.parse(localStorage.getItem("stats") || "{}");
+        if (!stats[username]) {
+        stats[username] = { gamesPlayed: 0 };
+        localStorage.setItem("stats", JSON.stringify(stats));
+  }
+
         showMessage("✅ Login successful!", "green");
         setTimeout(() => {
           closePopupBox();
@@ -565,6 +573,11 @@ body {
         users[username] = password;
         localStorage.setItem("users", JSON.stringify(users));
         localStorage.setItem("currentUser", username);
+        
+        const stats = JSON.parse(localStorage.getItem("stats") || "{}");
+        stats[username] = { gamesPlayed: 0 };
+        localStorage.setItem("stats", JSON.stringify(stats));
+        
         showMessage("✅ Registration successful!", "green");
         setTimeout(() => {
           closePopupBox();
