@@ -616,14 +616,17 @@ function incrementGamesPlayed() {
   const stats = JSON.parse(localStorage.getItem("stats") || "{}");
   if (!stats[username]) stats[username] = { gamesPlayed: 0 };
 
+  // ✅ Tambah 1 game
   stats[username].gamesPlayed += 1;
   localStorage.setItem("stats", JSON.stringify(stats));
 
+  // ✅ Update UI secara langsung tanpa memanggil showProfile()
   const gamesPlayedEl = document.getElementById("gamesPlayed");
   if (gamesPlayedEl) {
     gamesPlayedEl.textContent = `🎮 Games Played: ${stats[username].gamesPlayed}`;
   }
 }
+
       
   function openPopup(action) {
     currentAction = action;
