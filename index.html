@@ -577,8 +577,6 @@ function showProfile(username) {
   userProfile.style.display = "block";
   authSection.style.display = "none";
 
-  incrementGamesPlayed();
-
   const stats = JSON.parse(localStorage.getItem("stats") || "{}");
   const played = stats[username]?.gamesPlayed || 0;
 
