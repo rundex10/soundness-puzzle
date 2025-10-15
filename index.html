@@ -411,7 +411,7 @@ body {
   transition: 0.3s;
 }
 
-  </style>
+</style>
   
 </head>
 <body>
@@ -496,7 +496,7 @@ body {
     <button class="retro-btn" onclick="goHome()">Back to Menu</button>
 </div>
 
-  <script>
+<script>
     document.addEventListener("DOMContentLoaded", function() {
   const loginBtn = document.getElementById("loginBtn");
   const registerBtn = document.getElementById("registerBtn");
@@ -510,6 +510,7 @@ body {
   const userProfile = document.getElementById("userProfile");
   const userWelcome = document.getElementById("userWelcome");
   const logoutBtn = document.getElementById("logoutBtn");
+  const authSection = document.getElementById("authSection");
 
   const pickBtn = document.querySelector("#templateBtn");
   const modeBtn = document.querySelector("#modeBtn");
@@ -537,12 +538,12 @@ body {
     const username = usernameInput.value.trim();
     const password = passwordInput.value.trim();
 
-    if (!username || !password) {
+    if (!username  !password) {
       showMessage("Please fill all fields", "red");
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem("users") || "{}");
+    const users = JSON.parse(localStorage.getItem("users")  "{}");
 
     if (currentAction === "login") {
       if (users[username] && users[username] === password) {
@@ -573,12 +574,12 @@ body {
 
       // dataplay
 function showProfile(username) {
-  userWelcome.innerHTML = `<b>Welcome, ${username}</b>`;
+  userWelcome.innerHTML = <b>Welcome, ${username}</b>;
   userProfile.style.display = "block";
   authSection.style.display = "none";
 
-  const stats = JSON.parse(localStorage.getItem("stats") || "{}");
-  const played = stats[username]?.gamesPlayed || 0;
+  const stats = JSON.parse(localStorage.getItem("stats")  "{}");
+  const played = stats[username]?.gamesPlayed  0;
 
   let gamesPlayedEl = document.getElementById("gamesPlayed");
   if (!gamesPlayedEl) {
@@ -586,7 +587,7 @@ function showProfile(username) {
     gamesPlayedEl.id = "gamesPlayed";
     userProfile.appendChild(gamesPlayedEl);
   }
-  gamesPlayedEl.textContent = `🎮 Games Played: ${played}`;
+  gamesPlayedEl.textContent = 🎮 Games Played: ${played};
 
   [pickBtn, modeBtn, startBtn].forEach(btn => {
     if (btn) btn.disabled = false;
@@ -596,8 +597,7 @@ function showProfile(username) {
 function incrementGamesPlayed() {
   const username = localStorage.getItem("currentUser");
   if (!username) return;
-
-  const stats = JSON.parse(localStorage.getItem("stats") || "{}");
+  const stats = JSON.parse(localStorage.getItem("stats")  "{}");
   if (!stats[username]) stats[username] = { gamesPlayed: 0 };
 
   stats[username].gamesPlayed += 1;
@@ -634,6 +634,7 @@ function incrementGamesPlayed() {
     [pickBtn, modeBtn, startBtn].forEach(btn => {
       if (btn) btn.disabled = true;
       });
+    goHome();
   }
 });
     
@@ -752,7 +753,6 @@ function incrementGamesPlayed() {
 
   document.getElementById("templateBtn").innerText = "Pick a Theme";
   document.getElementById("modeBtn").innerText = "Mode";
-
   document.getElementById("startBtn").disabled = true;
 
   board.innerHTML = "";
@@ -792,7 +792,7 @@ function goHome() {
 }
 
     function startGame() {
-    if (!selectedTemplate || !Number.isInteger(puzzleSize)) return;
+    if (!selectedTemplate  !Number.isInteger(puzzleSize)) return;
       
       board.innerHTML = "";
       pieces.innerHTML = "";
@@ -803,7 +803,7 @@ function goHome() {
       document.getElementById("game-desc").style.display = "none";
       document.getElementById("love").style.display = "none";
       document.getElementById("love").classList.add("hidden");
-      board.style.gridTemplateColumns = `repeat(${puzzleSize}, 1fr)`;
+      board.style.gridTemplateColumns = repeat(${puzzleSize}, 1fr);
 
       const total = puzzleSize * puzzleSize;
       const tileSize = 492 / puzzleSize;
@@ -828,7 +828,6 @@ function goHome() {
     if (!slot.hasChildNodes()) {
       pieces.removeChild(tileOriginal);
       slot.appendChild(tileOriginal);
-
       const size = board.clientWidth / puzzleSize;
       const row = parseInt(slot.dataset.row);
       const col = parseInt(slot.dataset.col);
@@ -862,8 +861,8 @@ function goHome() {
 function resizeTileToSlot(tile, size, row, col) {
   tile.style.width = size + "px";
   tile.style.height = size + "px";
-  tile.style.backgroundSize = `${puzzleSize * 100}% ${puzzleSize * 100}%`;
-  tile.style.backgroundPosition = `${(col / (puzzleSize - 1)) * 100}% ${(row / (puzzleSize - 1)) * 100}%`;
+  tile.style.backgroundSize = ${puzzleSize * 100}% ${puzzleSize * 100}%;
+  tile.style.backgroundPosition = ${(col / (puzzleSize - 1)) * 100}% ${(row / (puzzleSize - 1)) * 100}%;
 }
         board.appendChild(slot);
       }
@@ -892,12 +891,12 @@ function resizeTileToSlot(tile, size, row, col) {
   div.id = "tile" + i;
   div.dataset.id = i;
   div.draggable = true;
-  div.style.backgroundImage = `url(${selectedTemplate.file})`;
-  div.style.backgroundSize = `${puzzleSize * 100}% ${puzzleSize * 100}%`;
+  div.style.backgroundImage = url(${selectedTemplate.file});
+  div.style.backgroundSize = ${puzzleSize * 100}% ${puzzleSize * 100}%;
 
   const x = i % puzzleSize;
   const y = Math.floor(i / puzzleSize);
-  div.style.backgroundPosition = `${(x / (puzzleSize - 1)) * 100}% ${(y / (puzzleSize - 1)) * 100}%`;
+  div.style.backgroundPosition = ${(x / (puzzleSize - 1)) * 100}% ${(y / (puzzleSize - 1)) * 100}%;
 
   div.style.width = size + "px";
   div.style.height = size + "px";
@@ -925,10 +924,12 @@ function resizeTileToSlot(tile, size, row, col) {
         clearInterval(interval);
 
         document.getElementById("winThumb").src = selectedTemplate.file;
-        document.getElementById("winStats").textContent = `Time: ${timer}s - Attempts: ${moveCount}`;
+        document.getElementById("winStats").textContent = Time: ${timer}s - Attempts: ${moveCount};
         document.getElementById("winPopup").style.display = "block";
         document.getElementById("overlay").style.display = "block";
         document.getElementById("overlayBlur").style.display = "block";
+
+        incrementGamesPlayed();
 
         recordWin(selectedTemplate.name, timer, moveCount);
         saveUserData();
@@ -959,7 +960,6 @@ function launchConfetti() {
   canvas.style.display = "block";
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-
   const confettis = [];
   const colors = ["#ff595e","#ffca3a","#8ac926","#1982c4","#6a4c93","#ff99c8"];
 
